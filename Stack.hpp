@@ -1,11 +1,11 @@
 #ifndef STACK_TPP
 #define STACK_TPP
 
-#include <vector>
+#include <vector> // TO REMOVE
 
 namespace ft {
+	
 template <class T, class Container = std::vector<T> > // TODO - replace std::vector by ft::vector
-
 class stack {
 public:
 	typedef Container container_type;
@@ -16,7 +16,7 @@ protected:
 	Container c;
 
 public:
-	explicit stack(const Container& ctnr = Container()): c(ctnr) {};
+	explicit stack(const Container& ctnr = Container()): c(ctnr) {}
 	bool empty() const { return c.empty(); }
 	size_type size() const { return c.size(); }
 	value_type& top() { return c.back(); }
@@ -26,27 +26,27 @@ public:
 
 	friend bool operator==(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
 		return lhs.c == rhs.c;
-	};
+	}
 
 	friend bool operator!=(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
 		return lhs.c != rhs.c;
-	};
+	}
 
 	friend bool operator< (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
 		return lhs.c < rhs.c;
-	};
+	}
 
 	friend bool operator<=(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
 		return lhs.c <= rhs.c;
-	};
+	}
 
 	friend bool operator> (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
 		return lhs.c > rhs.c;
-	};
+	}
 
 	friend bool operator>=(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
 		return lhs.c >= rhs.c;
-	};
+	}
 };
 
 }
