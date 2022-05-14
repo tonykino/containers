@@ -1,49 +1,54 @@
+#ifndef STACK_TPP
+#define STACK_TPP
+
 #include <vector>
 
 namespace ft {
-    template <class T, class Container = std::vector<T> >
+template <class T, class Container = std::vector<T> > // TODO - replace std::vector by ft::vector
 
-    class stack {
-    public:
-        typedef Container container_type;
-        typedef typename Container::value_type value_type;
-        typedef typename Container::size_type size_type;
+class stack {
+public:
+	typedef Container container_type;
+	typedef typename Container::value_type value_type;
+	typedef typename Container::size_type size_type;
 
-        // Reference {from cppreference but not ISO/cplusplus} - useless?
-        // Const reference {from cppreference but not ISO/cplusplus} - useless?
+protected:
+	Container c;
 
-    protected:
-        Container c;
+public:
+	explicit stack(const Container& ctnr = Container()): c(ctnr) {};
+	bool empty() const { return c.empty(); }
+	size_type size() const { return c.size(); }
+	value_type& top() { return c.back(); }
+	const value_type& top() const { return c.back(); }
+	void push(const value_type& x) { c.push_back(x); }
+	void pop() { c.pop_back(); }
 
-    public:
-        // constructor
-        // destructor - use the default one {from cppreference} - useless
-        // operator= - Use the default one {from cppreference} - useless
+	friend bool operator==(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+		return lhs.c == rhs.c;
+	};
 
-        explicit stack(const Container& cont = Container()) {};
-        bool empty() const { return c.empty(); }
-        size_type size() const { return c.size(); }
-        value_type& top() { return c.back(); }
-        const value_type& top() const { return c.back(); }
-        void push(const value_type& x) { c.push_back(x); }
-        void pop() { c.pop_back(); }
-    };
+	friend bool operator!=(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+		return lhs.c != rhs.c;
+	};
 
-    template <class T, class Container>
-    bool operator==(const stack<T, Container>& x, const stack<T, Container>& y);
+	friend bool operator< (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+		return lhs.c < rhs.c;
+	};
 
-    template <class T, class Container>
-    bool operator< (const stack<T, Container>& x, const stack<T, Container>& y);
+	friend bool operator<=(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+		return lhs.c <= rhs.c;
+	};
 
-    template <class T, class Container>
-    bool operator!=(const stack<T, Container>& x, const stack<T, Container>& y);
+	friend bool operator> (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+		return lhs.c > rhs.c;
+	};
 
-    template <class T, class Container>
-    bool operator> (const stack<T, Container>& x, const stack<T, Container>& y);
+	friend bool operator>=(const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
+		return lhs.c >= rhs.c;
+	};
+};
 
-    template <class T, class Container>
-    bool operator>=(const stack<T, Container>& x, const stack<T, Container>& y);
-
-    template <class T, class Container>
-    bool operator<=(const stack<T, Container>& x, const stack<T, Container>& y);
 }
+
+#endif
