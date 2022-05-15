@@ -17,18 +17,18 @@ int main(void)
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
         v1.push_back(1);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-        v1.push_back(2);
-		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
         v1.push_back(3);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-        v1.push_back(4);
         v1.push_back(5);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-        v1.push_back(6);
         v1.push_back(7);
-        v1.push_back(8);
-		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
         v1.push_back(9);
+		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
+        v1.push_back(2);
+        v1.push_back(4);
+        v1.push_back(6);
+		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
+        v1.push_back(8);
         v1.push_back(10);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
 
@@ -39,12 +39,12 @@ int main(void)
 
 
 
-        // std::vector<int> v3(10, 3);
-		// std::cout << "v3: size:" << v3.size() << " capacity:" << v3.capacity() << " max_size:" << v3.max_size() << std::endl;
+        std::vector<int> v3(10, 3);
+		std::cout << "v3: size:" << v3.size() << " capacity:" << v3.capacity() << " max_size:" << v3.max_size() << std::endl;
 
-
-        // for (std::vector<int>::iterator it = v1.begin(); it < v1.end(); it++)
-        //     std::cout << *it << std::endl;
+		std::cout << "Simple Iteration" << std::endl;
+        for (std::vector<int>::iterator it = v1.begin(); it < v1.end(); it++)
+            std::cout << *it << std::endl;
     }
 
 
@@ -56,18 +56,18 @@ int main(void)
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
         v1.push_back(1);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-        v1.push_back(2);
-		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
         v1.push_back(3);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-        v1.push_back(4);
         v1.push_back(5);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-        v1.push_back(6);
         v1.push_back(7);
-        v1.push_back(8);
-		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
         v1.push_back(9);
+		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
+        v1.push_back(2);
+        v1.push_back(4);
+        v1.push_back(6);
+		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
+        v1.push_back(8);
         v1.push_back(10);
 		std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
 
@@ -78,12 +78,12 @@ int main(void)
 
 
 
-        // std::vector<int> v3(10, 3);
-		// std::cout << "v3: size:" << v3.size() << " capacity:" << v3.capacity() << " max_size:" << v3.max_size() << std::endl;
+        std::vector<int> v3(10, 3);
+		std::cout << "v3: size:" << v3.size() << " capacity:" << v3.capacity() << " max_size:" << v3.max_size() << std::endl;
 
-
-        // for (std::vector<int>::iterator it = v1.begin(); it < v1.end(); it++)
-        //     std::cout << *it << std::endl;
+		std::cout << "Simple Iteration" << std::endl;
+        for (ft::vector<int>::iterator it = v1.begin(); it < v1.end(); it++)
+            std::cout << *it << std::endl;
     }
 
     // {

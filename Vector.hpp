@@ -18,10 +18,12 @@ public:
 	typedef typename Allocator::pointer pointer;
 	typedef typename Allocator::const_pointer const_pointer;
 
-	// typedef implementation defined iterator; // See 23.1  // TODO
-	// typedef implementation defined const_iterator; // See 23.1 // TODO
-	// typedef std::reverse_iterator<iterator> reverse_iterator; // TODO
-	// typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // TODO
+	// typedef std::iterator<pointer, value_type> iterator; // TODO
+	typedef pointer iterator; // TODO, should be the above line ?
+	// typedef std::iterator<const_pointer, value_type> const_iterator; // TODO
+	typedef const_pointer const_iterator; // TODO, should be the above line ?
+	typedef std::reverse_iterator<iterator> reverse_iterator; // TODO, use ft::reverse_iterator
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // TODO, use ft::reverse_iterator
 	
 	typedef std::ptrdiff_t difference_type;
 	typedef std::size_t size_type;
@@ -50,11 +52,11 @@ public:
 	// void assign(size_type n, const T& u);
 	// allocator_type get_allocator() const;
 
-	// // iterators:
-	// iterator begin();
-	// const_iterator begin() const;
-	// iterator end();
-	// const_iterator end() const;
+	// iterators:
+	iterator begin() { return _start; }
+	const_iterator begin() const { return _start; }
+	iterator end() { return _end; }
+	const_iterator end() const { return _end; }
 	// reverse_iterator rbegin();
 	// const_reverse_iterator rbegin() const;
 	// reverse_iterator rend();
