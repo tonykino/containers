@@ -39,17 +39,27 @@ public:
 	}
 
 	// template <class InputIterator>
-	// vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type());
+	// vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+	// : _alloc(alloc), _start(_alloc.allocate(last - first)), ??? {
+
+	// }
 
 	// vector(const vector<T,allocator_type>& x);
 	// ~vector();
 	
 	// vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x);
 
-	// template <class InputIterator>
-	// void assign(InputIterator first, InputIterator last);
+	template <class InputIterator>
+	void assign(InputIterator first, InputIterator last) {
+		clear();
+		insert(begin(), first, last);
+	}
 
-	// void assign(size_type n, const T& u);
+	void assign(size_type n, const T& val) {
+		clear();
+		insert(begin(), n, val);
+	}
+
 	// allocator_type get_allocator() const;
 
 	// iterators:
@@ -80,12 +90,14 @@ public:
 	// bool empty() const;
 	void reserve(size_type n) {
 		// TODO : handle n > max_size()
+
 		if (n <= capacity()) return ;
 
+		std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
 		size_type old_size = size();
 		
 		// allocate new space
-		pointer new_start = _alloc.allocate(n);
+		iterator new_start = _alloc.allocate(n);
 
 		// copy elts to new reserved space
 		for (size_type i = 0; i < old_size; i++)
@@ -125,8 +137,40 @@ public:
 		_end++;
 	}
 	// void pop_back();
-	// iterator insert(iterator position, const T& x);
-	// void insert(iterator position, size_type n, const T& x);
+
+	iterator insert(iterator pos, const T& v) {
+		insert(pos, 1, v);
+		return pos;
+	}
+
+	void insert(iterator pos, size_type n, const T& v) {
+		// std::cout << "0 begin:" << begin() << " pos:" << pos << std::endl;
+
+		// First, check if enough capacity, reserve if not
+		if (size() + n > capacity()) {
+			// We need to keep the diff to update pos to the new reserved area
+			difference_type diff = pos - _start;
+			reserve(std::max<size_type>(n, 2 * capacity()));
+			pos = _start + diff;
+		}
+		
+		// std::cout << "1 begin:" << begin() << " pos:" << pos << std::endl;
+
+		// Next, move right part from n
+		iterator new_end = _end + n;
+		iterator new_pos = new_end;
+		for (iterator cur = _end; cur >= pos; cur--, new_pos--) {
+			// std::cout << "2 begin:" << begin() << " pos:" << pos << std::endl;
+			_alloc.construct(new_pos, *cur);
+		}
+		_end = new_end;
+
+		// Insert n * v at pos
+		for (iterator cur = pos; cur < pos + n; cur++) {
+			// std::cout << "3 begin:" << begin() << " pos:" << pos << std::endl;
+			_alloc.construct(cur, v);
+		}
+	}
 
 	// template <class InputIterator>
 	// void insert(iterator position, InputIterator first, InputIterator last);
@@ -134,13 +178,18 @@ public:
 	// iterator erase(iterator position);
 	// iterator erase(iterator first, iterator last);
 	// void swap(vector<T,Allocator>&);
-	// void clear();
+	void clear() {
+		for (iterator p = _start; p < _end_capa; p++) {
+			_alloc.destroy(p);
+		}
+		_end = _start;
+	}
 
 private:
 	allocator_type	_alloc;
-	pointer			_start;
-	pointer			_end;
-	pointer			_end_capa;
+	iterator		_start;
+	iterator		_end;
+	iterator		_end_capa;
 };
 
 // template <class T, class Allocator>
