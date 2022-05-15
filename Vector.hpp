@@ -34,8 +34,7 @@ public:
 
 	explicit vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type())
 	: _alloc(alloc), _start(_alloc.allocate(n)), _end(_start + n), _end_capa(_end) {
-		for (size_type i = 0; i < n; i++)
-			push_back(value);
+		assign(n, value);
 	}
 
 	// template <class InputIterator>
