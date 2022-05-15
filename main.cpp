@@ -4,7 +4,13 @@
 #include "Stack.hpp"
 #include "Vector.hpp"
 
-
+template<typename T>
+void print_vector(T & v) {
+	std::cout << "s:" << v.size() << " c:" << v.capacity() << " | ";
+	for (typename T::iterator it = v.begin(); it < v.end(); it++)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+}
 
 int main(void)
 {
@@ -41,28 +47,12 @@ int main(void)
 		std::cout << "   --- STD::VECTOR.INSERT ---" << std::endl;
 
 		std::vector<int> v;
-
 		v.insert(v.begin(), 7, 3);
-
-		std::cout << "s:" << v.size() << " c:" << v.capacity() << " | ";
-		for (std::vector<int>::iterator it = v.begin(); it < v.end(); it++)
-        	std::cout << *it << " ";
-		std::cout << std::endl;
-
+		print_vector(v);
 		v.insert(v.begin() + 3, 4);
-
-		std::cout << "s:" << v.size() << " c:" << v.capacity() << " | ";
-		for (std::vector<int>::iterator it = v.begin(); it < v.end(); it++)
-        	std::cout << *it << " ";
-		std::cout << std::endl;
-		
+		print_vector(v);
 		v.insert(v.begin() + 4, 3, 42);
-
-		std::cout << "s:" << v.size() << " c:" << v.capacity() << " | ";
-		for (std::vector<int>::iterator it = v.begin(); it < v.end(); it++)
-        	std::cout << *it << " ";
-		std::cout << std::endl;
-		
+		print_vector(v);
 	}
 
 
@@ -71,107 +61,80 @@ int main(void)
 		std::cout << "   --- FT::VECTOR.INSERT ---" << std::endl;
 
 		ft::vector<int> v;
-
 		v.insert(v.begin(), 7, 3);
-
-		std::cout << "s:" << v.size() << " c:" << v.capacity() << " | ";
-		for (ft::vector<int>::iterator it = v.begin(); it < v.end(); it++)
-        	std::cout << *it << " ";
-		std::cout << std::endl;
-
+		print_vector(v);
 		v.insert(v.begin() + 3, 4);
-
-		std::cout << "s:" << v.size() << " c:" << v.capacity() << " | ";
-		for (ft::vector<int>::iterator it = v.begin(); it < v.end(); it++)
-        	std::cout << *it << " ";
-		std::cout << std::endl;
-		
+		print_vector(v);
 		v.insert(v.begin() + 4, 3, 42);
-
-		std::cout << "s:" << v.size() << " c:" << v.capacity() << " | ";
-		for (ft::vector<int>::iterator it = v.begin(); it < v.end(); it++)
-        	std::cout << *it << " ";
-		std::cout << std::endl;
-		
+		print_vector(v);
 	}
 
 
-    // {
-    //     // TEST STD::VECTOR
-	// 	std::cout << std::endl << "   --- STD::VECTOR --- " << std::endl;
+    {
+        // TEST STD::VECTOR
+		std::cout << std::endl << "   --- STD::VECTOR.PUSH_BACK --- " << std::endl;
 
-    //     std::vector<int> v1;
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(1);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(3);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(5);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(7);
-    //     v1.push_back(9);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(2);
-    //     v1.push_back(4);
-    //     v1.push_back(6);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(8);
-    //     v1.push_back(10);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
+        std::vector<int> v1;
+		print_vector(v1);
+        v1.push_back(1);
+		print_vector(v1);
+        v1.push_back(3);
+		print_vector(v1);
+        v1.push_back(5);
+		print_vector(v1);
+        v1.push_back(7);
+        v1.push_back(9);
+		print_vector(v1);
+        v1.push_back(2);
+        v1.push_back(4);
+        v1.push_back(6);
+		print_vector(v1);
+        v1.push_back(8);
+        v1.push_back(10);
+		print_vector(v1);
 
-    //     // std::vector<int> v2(v1);
-	// 	// std::cout << "v2: size:" << v2.size() << " capacity:" << v2.capacity() << " max_size:" << v2.max_size() << std::endl;
-    //     // v2.push_back(11);
-	// 	// std::cout << "v2: size:" << v2.size() << " capacity:" << v2.capacity() << " max_size:" << v2.max_size() << std::endl;
+        // std::vector<int> v2(v1);
+		// print_vector(v2);
+        // v2.push_back(11);
+		// print_vector(v2);
 
-
-
-    //     std::vector<int> v3(10, 3);
-	// 	std::cout << "v3: size:" << v3.size() << " capacity:" << v3.capacity() << " max_size:" << v3.max_size() << std::endl;
-
-	// 	std::cout << "Simple Iteration" << std::endl;
-    //     for (std::vector<int>::iterator it = v1.begin(); it < v1.end(); it++)
-    //         std::cout << *it << std::endl;
-    // }
+        std::vector<int> v3(10, 3);
+		print_vector(v3);
+    }
 
 
-    // {
-    //     // TEST FT::VECTOR
-	// 	std::cout << std::endl << "   --- FT::VECTOR --- " << std::endl;
+    {
+        // TEST FT::VECTOR
+		std::cout << std::endl << "   --- FT::VECTOR.PUSH_BACK --- " << std::endl;
 
-    //     ft::vector<int> v1;
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(1);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(3);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(5);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(7);
-    //     v1.push_back(9);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(2);
-    //     v1.push_back(4);
-    //     v1.push_back(6);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
-    //     v1.push_back(8);
-    //     v1.push_back(10);
-	// 	std::cout << "v1: size:" << v1.size() << " capacity:" << v1.capacity() << " max_size:" << v1.max_size() << std::endl;
+        ft::vector<int> v1;
+		print_vector(v1);
+        v1.push_back(1);
+		print_vector(v1);
+        v1.push_back(3);
+		print_vector(v1);
+        v1.push_back(5);
+		print_vector(v1);
+        v1.push_back(7);
+        v1.push_back(9);
+		print_vector(v1);
+        v1.push_back(2);
+        v1.push_back(4);
+        v1.push_back(6);
+		print_vector(v1);
+        v1.push_back(8);
+        v1.push_back(10);
+		print_vector(v1);
 
-    //     // std::vector<int> v2(v1);
-	// 	// std::cout << "v2: size:" << v2.size() << " capacity:" << v2.capacity() << " max_size:" << v2.max_size() << std::endl;
-    //     // v2.push_back(11);
-	// 	// std::cout << "v2: size:" << v2.size() << " capacity:" << v2.capacity() << " max_size:" << v2.max_size() << std::endl;
+        // ft::vector<int> v2(v1);
+		// print_vector(v2);
+        // v2.push_back(11);
+		// print_vector(v2);
 
+        ft::vector<int> v3(10, 3);
+		print_vector(v3);
 
-
-    //     std::vector<int> v3(10, 3);
-	// 	std::cout << "v3: size:" << v3.size() << " capacity:" << v3.capacity() << " max_size:" << v3.max_size() << std::endl;
-
-	// 	std::cout << "Simple Iteration" << std::endl;
-    //     for (ft::vector<int>::iterator it = v1.begin(); it < v1.end(); it++)
-    //         std::cout << *it << std::endl;
-    // }
+    }
 
     // {
     //     // TEST STD::STACK

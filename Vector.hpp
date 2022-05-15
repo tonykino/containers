@@ -93,7 +93,7 @@ public:
 
 		if (n <= capacity()) return ;
 
-		std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
+		// std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
 		size_type old_size = size();
 		
 		// allocate new space
