@@ -32,9 +32,9 @@ public:
 	explicit vector(const allocator_type& alloc = allocator_type())
 	: _alloc(alloc), _start(_alloc.allocate(0)), _end(_start), _end_capa(_end) {}
 
-	explicit vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type())
+	explicit vector(size_type n, const T& v = T(), const allocator_type& alloc = allocator_type())
 	: _alloc(alloc), _start(_alloc.allocate(n)), _end(_start + n), _end_capa(_end) {
-		assign(n, value);
+		assign(n, v);
 	}
 
 	// template <class InputIterator>
@@ -127,13 +127,7 @@ public:
 
 	// // 23.2.4.3 modifiers:
 	void push_back(const T& v) {
-		// Increase capacity if needed
-		if (size() >= capacity())
-			reserve(std::max<size_type>(1, 2 * capacity()));
-
-		// construct new elt
-		_alloc.construct(_end, v);
-		_end++;
+		insert(_end, v);
 	}
 	// void pop_back();
 
