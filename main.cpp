@@ -75,6 +75,37 @@ int main(void)
 		print_vector(v4);
 	}
 
+	{
+		// TEST STD::VECTOR.OPERATOR==
+		std::cout << std::endl << "   --- STD::VECTOR.OPERATOR= ---" << std::endl;
+
+		std::vector<int> foo (3,0);
+  		std::vector<int> bar (5,0);
+		print_vector(foo);
+		print_vector(bar);
+
+		bar = foo;
+		foo = std::vector<int>();
+		
+		print_vector(foo);
+		print_vector(bar);
+	}
+
+	{
+		// TEST FT::VECTOR.OPERATOR==
+		std::cout << std::endl << "   --- FT::VECTOR.OPERATOR= ---" << std::endl;
+		
+		ft::vector<int> foo (3,0);
+  		ft::vector<int> bar (5,0);
+		print_vector(foo);
+		print_vector(bar);
+
+		bar = foo;
+		foo = ft::vector<int>();
+		print_vector(foo);
+		print_vector(bar);
+	}
+
 
 	{
 		// TEST STD::VECTOR.INSERT(POS, N, VAL)

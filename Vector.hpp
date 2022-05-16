@@ -61,7 +61,10 @@ public:
 		_alloc.deallocate(_start, capacity());
 	}
 	
-	// vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x);
+	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) {
+		assign(rhs.begin(), rhs.end()); // TO DO - bugfix: resize if needed
+		return *this;
+	}
 
 	template <class InputIterator>
 	void assign(InputIterator first, InputIterator last,
