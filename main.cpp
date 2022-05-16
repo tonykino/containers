@@ -263,6 +263,82 @@ int main(void)
 					<< " v4:" << v4.empty() << std::endl;
 	}
 
+	{
+		std::cout << std::endl << "   --- STD::VECTOR.ERASE(POS) --- " << std::endl;
+
+		std::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.erase(v1.begin() + 3);
+		print_vector(v1);
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR.ERASE(POS) --- " << std::endl;
+
+		ft::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.erase(v1.begin() + 3);
+		print_vector(v1);
+	}
+
+	{
+		std::cout << std::endl << "   --- STD::VECTOR.ERASE(FIRST, LAST) --- " << std::endl;
+
+		std::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.erase(v1.begin() + 1, v1.begin() + 5);
+		print_vector(v1);
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR.ERASE(FIRST, LAST) --- " << std::endl;
+
+		ft::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.erase(v1.begin() + 1, v1.begin() + 5);
+		print_vector(v1);
+	}
+
+	{
+		std::cout << std::endl << "   --- STD::VECTOR.RESIZE --- " << std::endl;
+
+		std::vector<int> v1;
+		for (int i = 0; i < 6; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.resize(10);
+		print_vector(v1);
+		v1.resize(3);
+		print_vector(v1);
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR.RESIZE --- " << std::endl;
+
+		ft::vector<int> v1;
+		for (int i = 0; i < 6; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.resize(10);
+		print_vector(v1);
+		v1.resize(3);
+		print_vector(v1);
+	}
+
     // {
     //     // TEST STD::STACK
     //     std::cout << "   --- STD::STACK --- " << std::endl;

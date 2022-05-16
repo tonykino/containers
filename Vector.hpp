@@ -94,10 +94,17 @@ public:
 	size_type size()	 const { return _end - _start; }
 	size_type max_size() const { return _alloc.max_size(); }
 	size_type capacity() const { return _end_capa - _start; }
+	bool	  empty() 	 const { return size() == 0; }
 
-	// void resize(size_type sz, T c = T());
+	void resize(size_type n, value_type v = value_type()) {
+		if (n < size()) {
+			erase(begin() + n, end());
+		}
+		else if (n > size()) {
+			insert(end(), n - size(), v);
+		}
+	}
 
-	bool empty() const { return size() == 0; }
 
 	void reserve(size_type n) {
 		// TODO : handle n > max_size()
@@ -163,8 +170,16 @@ public:
 			_alloc.construct(pos + i, *(first + i));
 	}
 	
-	// iterator erase(iterator position);
-	// iterator erase(iterator first, iterator last);
+	iterator erase(iterator pos) {
+		_shiftLeft(pos, 1);
+		return pos;
+	}
+
+	iterator erase(iterator first, iterator last) {
+		_shiftLeft(first, last - first);
+		return first;
+	}
+
 	// void swap(vector<T,Allocator>&);
 	void clear() {
 		for (iterator p = _start; p < _end_capa; p++) {
@@ -182,17 +197,28 @@ private:
 	void _shiftRight(iterator pos, size_type n) {
 		iterator new_end = end() + n;
 		iterator new_pos = new_end - 1;
-		for (iterator cur = end() - 1; cur >= pos; cur--, new_pos--) {
-			_alloc.construct(new_pos, *cur);
+		for (iterator it = end() - 1; it >= pos; it--, new_pos--) {
+			_alloc.construct(new_pos, *it);
+			_alloc.destroy(it);
 		}
 		_end = new_end;
+	}
+
+	void _shiftLeft(iterator pos, size_type n) {
+		for (iterator it = pos; it < end() - n; it++) {
+			// std::cout << "Move " << *(it + n) << " from " << it + n << " to " << it << std::endl;
+			_alloc.destroy(it);
+			_alloc.construct(it, *(it + n));
+			_alloc.destroy(it + n);
+		}
+		_end = end() - n;
 	}
 
 	iterator _reserve_at(iterator pos, size_type n) {
 		if (size() + n <= capacity()) return pos;
 
 		difference_type diff = pos - begin();
-		reserve(std::max<size_type>(n, 2 * capacity()));
+		reserve(std::max<size_type>(n, 2 * size()));
 		return begin() + diff;
 	}
 };
