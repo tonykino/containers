@@ -399,6 +399,32 @@ int main(void)
 				  << " v1.back():" << v1.back() << std::endl;
 	}
 
+	{
+		std::cout << std::endl << "   --- STD::VECTOR.SWAP --- " << std::endl;
+
+		std::vector<int> foo (3,100);
+		std::vector<int> bar (5,200);
+
+		print_vector(foo);
+		print_vector(bar);
+		foo.swap(bar);
+		print_vector(foo);
+		print_vector(bar);
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR.SWAP --- " << std::endl;
+
+		ft::vector<int> foo (3,100);
+		ft::vector<int> bar (5,200);
+
+		print_vector(foo);
+		print_vector(bar);
+		foo.swap(bar);
+		print_vector(foo);
+		print_vector(bar);
+	}
+
     // {
     //     // TEST STD::STACK
     //     std::cout << "   --- STD::STACK --- " << std::endl;

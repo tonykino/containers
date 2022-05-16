@@ -61,8 +61,12 @@ public:
 		_alloc.deallocate(_start, capacity());
 	}
 	
-	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) {
-		assign(rhs.begin(), rhs.end()); // TO DO - bugfix: resize if needed
+	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) { // TODO - I have a bug here , check test operator= and swap to see inconsistency
+		clear();
+		_alloc.deallocate(_start, capacity());
+		_end_capa = begin() + rhs.capacity(); 
+		_start = _alloc.allocate(rhs.capacity());
+		assign(rhs.begin(), rhs.end());
 		return *this;
 	}
 
@@ -106,27 +110,18 @@ public:
 
 	void reserve(size_type n) {
 		// TODO : handle n > max_size()
-
 		if (n <= capacity()) return ;
 
-		// std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
 		size_type old_size = size();
-		
-		// allocate new space
 		iterator new_start = _alloc.allocate(n);
 
-		// copy elts to new reserved space
 		for (size_type i = 0; i < old_size; i++)
 			_alloc.construct(new_start + i, _start[i]);
 
-		// destroy old elts
 		for (size_type i = 0; i < old_size; i++)
 			_alloc.destroy(_start + i);
 
-		// deallocate old space
 		_alloc.deallocate(_start, capacity());
-
-		// update pointers
 		_start = new_start;
 		_end = _start + old_size;
 		_end_capa = _start + n;
@@ -188,12 +183,14 @@ public:
 		return first;
 	}
 
-	// void swap(vector<T,Allocator>&);
+	void swap(vector & x) {
+		vector temp(x);
+		x = *this;
+		*this = temp;
+	}
+
 	void clear() {
-		for (iterator p = _start; p < _end_capa; p++) {
-			_alloc.destroy(p);
-		}
-		_end = _start;
+		erase(begin(), end());
 	}
 
 private:
@@ -214,7 +211,6 @@ private:
 
 	void _shiftLeft(iterator pos, size_type n) {
 		for (iterator it = pos; it < end() - n; it++) {
-			// std::cout << "Move " << *(it + n) << " from " << it + n << " to " << it << std::endl;
 			_alloc.destroy(it);
 			_alloc.construct(it, *(it + n));
 			_alloc.destroy(it + n);
