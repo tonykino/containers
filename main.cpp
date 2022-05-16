@@ -425,6 +425,44 @@ int main(void)
 		print_vector(bar);
 	}
 
+	{
+		std::cout << std::endl << "   --- STD::VECTOR COMPARAISON OPERATORS --- " << std::endl;
+
+		std::vector<int> foo (3,100);
+		std::vector<int> bar(foo);
+		std::vector<int> baz (4,42);
+
+		print_vector(foo);
+		print_vector(bar);
+		print_vector(baz);
+
+		std::cout << "foo==bar:" << (foo == bar) << " foo==baz:" << (foo == baz) << " bar==baz:" << (bar == baz) << std::endl;
+		std::cout << "foo!=bar:" << (foo != bar) << " foo!=baz:" << (foo != baz) << " bar!=baz:" << (bar != baz) << std::endl;
+		std::cout << "foo<bar:" << (foo < bar) << " foo<baz:" << (foo < baz) << " bar<baz:" << (bar < baz) << std::endl;
+		std::cout << "foo<=bar:" << (foo <= bar) << " foo<=baz:" << (foo <= baz) << " bar<=baz:" << (bar <= baz) << std::endl;
+		std::cout << "foo>bar:" << (foo > bar) << " foo>baz:" << (foo > baz) << " bar>baz:" << (bar > baz) << std::endl;
+		std::cout << "foo>=bar:" << (foo >= bar) << " foo>=baz:" << (foo >= baz) << " bar>=baz:" << (bar >= baz) << std::endl;
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR COMPARAISON OPERATORS --- " << std::endl;
+
+		ft::vector<int> foo (3,100);
+		ft::vector<int> bar(foo);
+		ft::vector<int> baz (4,42);
+
+		print_vector(foo);
+		print_vector(bar);
+		print_vector(baz);
+
+		std::cout << "foo==bar:" << (foo == bar) << " foo==baz:" << (foo == baz) << " bar==baz:" << (bar == baz) << std::endl;
+		std::cout << "foo!=bar:" << (foo != bar) << " foo!=baz:" << (foo != baz) << " bar!=baz:" << (bar != baz) << std::endl;
+		std::cout << "foo<bar:" << (foo < bar) << " foo<baz:" << (foo < baz) << " bar<baz:" << (bar < baz) << std::endl;
+		std::cout << "foo<=bar:" << (foo <= bar) << " foo<=baz:" << (foo <= baz) << " bar<=baz:" << (bar <= baz) << std::endl;
+		std::cout << "foo>bar:" << (foo > bar) << " foo>baz:" << (foo > baz) << " bar>baz:" << (bar > baz) << std::endl;
+		std::cout << "foo>=bar:" << (foo >= bar) << " foo>=baz:" << (foo >= baz) << " bar>=baz:" << (bar >= baz) << std::endl;
+	}
+
     // {
     //     // TEST STD::STACK
     //     std::cout << "   --- STD::STACK --- " << std::endl;

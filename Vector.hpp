@@ -61,7 +61,7 @@ public:
 		_alloc.deallocate(_start, capacity());
 	}
 	
-	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) { // TODO - I have a bug here , check test operator= and swap to see inconsistency
+	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) { // TODO - bugfix to do here, check test operator= and swap to see inconsistency
 		clear();
 		_alloc.deallocate(_start, capacity());
 		_end_capa = begin() + rhs.capacity(); 
@@ -109,7 +109,7 @@ public:
 
 
 	void reserve(size_type n) {
-		// TODO : handle n > max_size()
+		// TODO : bugfix : handle n > max_size()
 		if (n <= capacity()) return ;
 
 		size_type old_size = size();
@@ -227,23 +227,40 @@ private:
 	}
 };
 
-// template <class T, class Allocator>
-// bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+template <class T, class Allocator>
+bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+	if (x.size() != y.size()) return false;
 
-// template <class T, class Allocator>
-// bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+	for (size_t i = 0; i < x.size(); i++) { // todo - use ft::equal algorithm
+		if (x[i] != y[i]) return false;
+	}
+	return true;
+}
 
-// template <class T, class Allocator>
-// bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+template <class T, class Allocator>
+bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+	return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); // todo - use ft::lexicographical_compare
+}
 
-// template <class T, class Allocator>
-// bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+template <class T, class Allocator>
+bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+	return !(x == y);
+}
 
-// template <class T, class Allocator>
-// bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+template <class T, class Allocator>
+bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+	return y < x;
+}
 
-// template <class T, class Allocator>
-// bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y);
+template <class T, class Allocator>
+bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+	return !(x < y);
+}
+
+template <class T, class Allocator>
+bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+	return !(y < x);
+}
 
 // specialized algorithms:
 // template <class T, class Allocator>
