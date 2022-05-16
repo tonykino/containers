@@ -47,7 +47,10 @@ public:
 	}
 
 	// vector(const vector<T,allocator_type>& x);
-	// ~vector();
+	~vector() {
+		clear();
+		_alloc.deallocate(_start, capacity());
+	}
 	
 	// vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x);
 
