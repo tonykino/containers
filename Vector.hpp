@@ -139,73 +139,20 @@ public:
 	}
 
 	void insert(iterator pos, size_type n, const T& v) {
-		// std::cout << "0 begin:" << begin() << " pos:" << pos << std::endl;
-
-		// First, check if enough capacity, reserve if not
-		if (size() + n > capacity()) {
-			// We need to keep the diff to update pos to the new reserved area
-			difference_type diff = pos - _start;
-			reserve(std::max<size_type>(n, 2 * capacity()));
-			pos = _start + diff;
-		}
-		
-		// std::cout << "1 begin:" << begin() << " pos:" << pos << std::endl;
-
-		// Next, move right part from n
-		iterator new_end = _end + n;
-		iterator new_pos = new_end - 1;
-		for (iterator cur = _end - 1; cur >= pos; cur--, new_pos--) {
-			// std::cout << "2 begin:" << begin() << " pos:" << pos << std::endl;
-			_alloc.construct(new_pos, *cur);
-		}
-		_end = new_end;
-
-		// Insert n * v at pos
-		for (iterator cur = pos; cur < pos + n; cur++) {
-			// std::cout << "3 begin:" << begin() << " pos:" << pos << std::endl;
+		pos = _reserve_at(pos, n);
+		_shiftRight(pos, n);
+		for (iterator cur = pos; cur < pos + n; cur++)
 			_alloc.construct(cur, v);
-		}
 	}
 
 	template <class InputIterator>
 	void insert(iterator pos, InputIterator first, InputIterator last, 
-				typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) { // enable_if is needed to do this
-		// std::cout << "I came here" << std::endl;
-		// std::cout << "0 begin:" << begin() << " end:" << end() << " end_capa:" << _end_capa << " pos:" << pos << std::endl;
+				typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) { // TODO - replace std::is_integral by ft::is_integral
 		difference_type n = last - first;
-		if (size() + n > capacity()) {
-			// We need to keep the diff to update pos to the new reserved area
-			difference_type diff = pos - _start;
-			reserve(std::max<size_type>(n, 2 * capacity()));
-			pos = _start + diff;
-		}
-		
-		// std::cout << "1 begin:" << begin() << " end:" << end() << " end_capa:" << _end_capa << " pos:" << pos << std::endl;
-
-		// std::cout << "here s:" << size() << " c:" << capacity() << " | ";
-		// for (iterator it = begin(); it < end(); it++)
-		// 	std::cout << *it << " ";
-		// std::cout << std::endl;
-
-		// Next, move right part from n
-		iterator new_end = _end + n;
-		iterator new_pos = new_end - 1;
-		for (iterator cur = _end - 1; cur >= pos; cur--, new_pos--) {
-			// std::cout << "v:" << *cur << " from:" << cur << " to:" << new_pos << std::endl;
-			_alloc.construct(new_pos, *cur);
-		}
-		_end = new_end;
-
-		// std::cout << "here s:" << size() << " c:" << capacity() << " | ";
-		// for (iterator it = begin(); it < end(); it++)
-		// 	std::cout << *it << " ";
-		// std::cout << std::endl;
-
-		// Insert input
-		for (size_type i = 0; first + i < last; i++) {
-			// std::cout << "3 begin:" << begin() << " pos:" << pos << std::endl;
+		pos = _reserve_at(pos, n);
+		_shiftRight(pos, n);
+		for (size_type i = 0; first + i < last; i++)
 			_alloc.construct(pos + i, *(first + i));
-		}
 	}
 	
 	// iterator erase(iterator position);
@@ -223,6 +170,23 @@ private:
 	iterator		_start;
 	iterator		_end;
 	iterator		_end_capa;
+
+	void _shiftRight(iterator pos, size_type n) {
+		iterator new_end = end() + n;
+		iterator new_pos = new_end - 1;
+		for (iterator cur = end() - 1; cur >= pos; cur--, new_pos--) {
+			_alloc.construct(new_pos, *cur);
+		}
+		_end = new_end;
+	}
+
+	iterator _reserve_at(iterator pos, size_type n) {
+		if (size() + n <= capacity()) return pos;
+
+		difference_type diff = pos - begin();
+		reserve(std::max<size_type>(n, 2 * capacity()));
+		return begin() + diff;
+	}
 };
 
 // template <class T, class Allocator>
