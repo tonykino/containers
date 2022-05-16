@@ -97,12 +97,10 @@ public:
 	bool	  empty() 	 const { return size() == 0; }
 
 	void resize(size_type n, value_type v = value_type()) {
-		if (n < size()) {
+		if (n < size())
 			erase(begin() + n, end());
-		}
-		else if (n > size()) {
+		else if (n > size())
 			insert(end(), n - size(), v);
-		}
 	}
 
 
@@ -134,15 +132,25 @@ public:
 		_end_capa = _start + n;
 	}
 
-	// // element access:
-	// reference operator[](size_type n);
-	// const_reference operator[](size_type n) const;
-	// const_reference at(size_type n) const;
-	// reference at(size_type n);
-	// reference front();
-	// const_reference front() const;
-	// reference back();
-	// const_reference back() const;
+	// element access:
+	reference		operator[](size_type pos)		  { return begin()[pos]; }
+	const_reference operator[](size_type pos) const { return begin()[pos]; }
+	reference 		front()		  { return begin()[0]; }
+	const_reference front() const { return begin()[0]; }
+	reference 		back()		  { return begin()[size() - 1]; }
+	const_reference back() 	const { return begin()[size() - 1]; }
+
+	const_reference at(size_type pos) const {
+		if (pos >= size()) throw std::out_of_range("ft::vector::at");
+
+		return begin()[pos];
+	}
+
+	reference at(size_type pos) {
+		if (pos >= size()) throw std::out_of_range("ft::vector::at");
+
+		return begin()[pos];
+	}
 
 	// 23.2.4.3 modifiers:
 	void push_back(const T& v) { insert(_end, v); }

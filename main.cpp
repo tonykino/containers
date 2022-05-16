@@ -371,6 +371,33 @@ int main(void)
 		print_vector(v1);
 	}
 
+	{
+		std::cout << std::endl << "   --- STD::VECTOR - ELEMENT ACCESS --- " << std::endl;
+
+		std::vector<int> v1;
+		for (int i = 0; i < 6; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		std::cout <<  "v1[2]:" << v1[2]
+				  << " v1.at(2):" << v1.at(2)
+				  << " v1.front():" << v1.front()
+				  << " v1.back():" << v1.back() << std::endl;
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR - ELEMENT ACCESS --- " << std::endl;
+
+		ft::vector<int> v1;
+		for (int i = 0; i < 6; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		std::cout <<  "v1[2]:" << v1[2]
+				  << " v1.at(2):" << v1.at(2)
+				  << " v1.front():" << v1.front()
+				  << " v1.back():" << v1.back() << std::endl;
+	}
 
     // {
     //     // TEST STD::STACK
