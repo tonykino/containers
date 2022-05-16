@@ -39,11 +39,12 @@ public:
 		assign(n, v);
 	}
 
-	// template <class InputIterator>
-	// vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-	// : _alloc(alloc), _start(_alloc.allocate(last - first)), ??? {
-
-	// }
+	template <class InputIterator>
+	vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) // TODO - replace std::is_integral by ft::is_integral
+	: vector(alloc) {
+		assign(first, last);
+	}
 
 	// vector(const vector<T,allocator_type>& x);
 	// ~vector();
