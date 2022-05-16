@@ -146,7 +146,7 @@ public:
 
 	// 23.2.4.3 modifiers:
 	void push_back(const T& v) { insert(_end, v); }
-	// void pop_back();
+	void pop_back() { erase(_end - 1); }
 
 	iterator insert(iterator pos, const T& v) {
 		insert(pos, 1, v);

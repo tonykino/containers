@@ -339,6 +339,39 @@ int main(void)
 		print_vector(v1);
 	}
 
+	{
+		std::cout << std::endl << "   --- STD::VECTOR.POPBACK --- " << std::endl;
+
+		std::vector<int> v1;
+		for (int i = 0; i < 6; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.pop_back();
+		print_vector(v1);
+		v1.pop_back();
+		v1.pop_back();
+		v1.pop_back();
+		print_vector(v1);
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR.POPBACK --- " << std::endl;
+
+		ft::vector<int> v1;
+		for (int i = 0; i < 6; i++)
+			v1.push_back(i);
+
+		print_vector(v1);
+		v1.pop_back();
+		print_vector(v1);
+		v1.pop_back();
+		v1.pop_back();
+		v1.pop_back();
+		print_vector(v1);
+	}
+
+
     // {
     //     // TEST STD::STACK
     //     std::cout << "   --- STD::STACK --- " << std::endl;
