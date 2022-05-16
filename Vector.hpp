@@ -4,6 +4,8 @@
 #include <memory>
 #include <iostream>
 #include <algorithm>
+#include <type_traits> // todo - to delete
+#include "enable_if.hpp"
 
 namespace ft {
 	
@@ -49,7 +51,7 @@ public:
 	// vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x);
 
 	template <class InputIterator>
-	void assign(InputIterator first, InputIterator last) {
+	void assign(InputIterator first, InputIterator last) { // todo : use enable_if
 		clear();
 		insert(begin(), first, last);
 	}
@@ -92,7 +94,7 @@ public:
 
 		if (n <= capacity()) return ;
 
-		// std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
+		std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
 		size_type old_size = size();
 		
 		// allocate new space
@@ -165,8 +167,33 @@ public:
 		}
 	}
 
-	// template <class InputIterator>
-	// void insert(iterator position, InputIterator first, InputIterator last);
+	template <class InputIterator>
+	void insert(iterator pos, InputIterator first, InputIterator last, 
+				typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) { // enable_if is needed to do this
+		std::cout << "I came here" << std::endl;
+		difference_type n = last - first;
+		if (size() + n > capacity()) {
+			// We need to keep the diff to update pos to the new reserved area
+			difference_type diff = pos - _start;
+			reserve(std::max<size_type>(n, 2 * capacity()));
+			pos = _start + diff;
+		}
+
+		// Next, move right part from n
+		iterator new_end = _end + n;
+		iterator new_pos = new_end;
+		for (iterator cur = _end; cur >= pos; cur--, new_pos--) {
+			// std::cout << "2 begin:" << begin() << " pos:" << pos << std::endl;
+			_alloc.construct(new_pos, *cur);
+		}
+		_end = new_end;
+
+		// // Insert input
+		// for (iterator cur = first; cur < last; cur++) {
+		// 	// std::cout << "3 begin:" << begin() << " pos:" << pos << std::endl;
+		// 	_alloc.construct();
+		// }
+	}
 	
 	// iterator erase(iterator position);
 	// iterator erase(iterator first, iterator last);
