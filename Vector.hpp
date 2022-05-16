@@ -82,30 +82,23 @@ public:
 
 	// iterators:
 	iterator begin() { return _start; }
+	iterator end()	 { return _end; }
 	const_iterator begin() const { return _start; }
-	iterator end() { return _end; }
-	const_iterator end() const { return _end; }
+	const_iterator end()   const { return _end; }
 	reverse_iterator rbegin() { return reverse_iterator(_end); }
+	reverse_iterator rend()   { return reverse_iterator(_start); }
 	const_reverse_iterator rbegin() const { return const_reverse_iterator(_end); }
-	reverse_iterator rend() { return reverse_iterator(_start); }
-	const_reverse_iterator rend() const { return const_reverse_iterator(_start); }
+	const_reverse_iterator rend()   const { return const_reverse_iterator(_start); }
 
-	// // 23.2.4.2 capacity:
-	size_type size() const {
-		return _end - _start;
-	}
-
-	size_type max_size() const {
-		return _alloc.max_size();
-	}
+	// 23.2.4.2 capacity:
+	size_type size()	 const { return _end - _start; }
+	size_type max_size() const { return _alloc.max_size(); }
+	size_type capacity() const { return _end_capa - _start; }
 
 	// void resize(size_type sz, T c = T());
-	
-	size_type capacity() const {
-		return _end_capa - _start;
-	}
 
-	// bool empty() const;
+	bool empty() const { return size() == 0; }
+
 	void reserve(size_type n) {
 		// TODO : handle n > max_size()
 
@@ -144,10 +137,8 @@ public:
 	// reference back();
 	// const_reference back() const;
 
-	// // 23.2.4.3 modifiers:
-	void push_back(const T& v) {
-		insert(_end, v);
-	}
+	// 23.2.4.3 modifiers:
+	void push_back(const T& v) { insert(_end, v); }
 	// void pop_back();
 
 	iterator insert(iterator pos, const T& v) {

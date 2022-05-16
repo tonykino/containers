@@ -86,7 +86,7 @@ int main(void)
 
 		bar = foo;
 		foo = std::vector<int>();
-		
+
 		print_vector(foo);
 		print_vector(bar);
 	}
@@ -232,6 +232,36 @@ int main(void)
 		print_vector(v3);
 
     }
+
+	{
+		std::cout << std::endl << "   --- STD::VECTOR.EMPTY --- " << std::endl;
+
+		std::vector<int> v1;
+		std::vector<int> v2(0,0);
+		std::vector<int> v3(v1);
+		std::vector<int> v4(v1);
+		v4.push_back(3);
+
+		std::cout	<<  "v1:" << v1.empty()
+					<< " v2:" << v2.empty()
+					<< " v3:" << v3.empty()
+					<< " v4:" << v4.empty() << std::endl;
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR.EMPTY --- " << std::endl;
+
+		ft::vector<int> v1;
+		ft::vector<int> v2(0,0);
+		ft::vector<int> v3(v1);
+		ft::vector<int> v4(v1);
+		v4.push_back(3);
+
+		std::cout	<<  "v1:" << v1.empty()
+					<< " v2:" << v2.empty()
+					<< " v3:" << v3.empty()
+					<< " v4:" << v4.empty() << std::endl;
+	}
 
     // {
     //     // TEST STD::STACK
