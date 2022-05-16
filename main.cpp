@@ -42,9 +42,43 @@ int main(void)
 		
 	// }
 
+
+	{
+		// TEST STD::VECTOR.CONSTRUCTORS
+		std::cout << std::endl << "   --- STD::VECTOR CONSTRUCTORS ---" << std::endl;
+
+		std::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+		std::vector<int> v2(v1);
+		std::vector<int> v3(v1.begin() + 1, v1.end() - 1);
+		std::vector<int> v4(7, 3);
+		print_vector(v1);
+		print_vector(v2);
+		print_vector(v3);
+		print_vector(v4);
+	}
+
+	{
+		// TEST FT::VECTOR.CONSTRUCTORS
+		std::cout << std::endl << "   --- FT::VECTOR CONSTRUCTORS ---" << std::endl;
+
+		ft::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+		ft::vector<int> v2(v1);
+		ft::vector<int> v3(v1.begin() + 1, v1.end() - 1);
+		ft::vector<int> v4(7, 3);
+		print_vector(v1);
+		print_vector(v2);
+		print_vector(v3);
+		print_vector(v4);
+	}
+
+
 	{
 		// TEST STD::VECTOR.INSERT(POS, N, VAL)
-		std::cout << "   --- STD::VECTOR.INSERT(POS, N, VAL) ---" << std::endl;
+		std::cout << std::endl << "   --- STD::VECTOR.INSERT(POS, N, VAL) ---" << std::endl;
 
 		std::vector<int> v;
 		v.insert(v.begin(), 7, 3);
@@ -57,7 +91,7 @@ int main(void)
 
 	{
 		// TEST STD::VECTOR.INSERT(POS, N, VAL)
-		std::cout << "   --- FT::VECTOR.INSERT(POS, N, VAL) ---" << std::endl;
+		std::cout << std::endl << "   --- FT::VECTOR.INSERT(POS, N, VAL) ---" << std::endl;
 
 		ft::vector<int> v;
 		v.insert(v.begin(), 7, 3);
@@ -70,7 +104,7 @@ int main(void)
 
 	{
 		// TEST STD::VECTOR.INSERT(POS, FIRST, LAST)
-		std::cout << "   --- STD::VECTOR.INSERT(POS, FIRST, LAST) ---" << std::endl;
+		std::cout << std::endl << "   --- STD::VECTOR.INSERT(POS, FIRST, LAST) ---" << std::endl;
 
 		std::vector<int> v1(7, 3);
 		std::vector<int> v2;
@@ -87,7 +121,7 @@ int main(void)
 
 	{
 		// TEST FT::VECTOR.INSERT(POS, FIRST, LAST)
-		std::cout << "   --- FT::VECTOR.INSERT(POS, FIRST, LAST) ---" << std::endl;
+		std::cout << std::endl << "   --- FT::VECTOR.INSERT(POS, FIRST, LAST) ---" << std::endl;
 
 		ft::vector<int> v1(7, 3);
 		ft::vector<int> v2;
@@ -102,71 +136,71 @@ int main(void)
 		print_vector(v1);
 	}
 
-    // {
-    //     // TEST STD::VECTOR
-	// 	std::cout << std::endl << "   --- STD::VECTOR.PUSH_BACK --- " << std::endl;
+    {
+        // TEST STD::VECTOR
+		std::cout << std::endl << "   --- STD::VECTOR.PUSH_BACK --- " << std::endl;
 
-    //     std::vector<int> v1;
-	// 	print_vector(v1);
-    //     v1.push_back(1);
-	// 	print_vector(v1);
-    //     v1.push_back(3);
-	// 	print_vector(v1);
-    //     v1.push_back(5);
-	// 	print_vector(v1);
-    //     v1.push_back(7);
-    //     v1.push_back(9);
-	// 	print_vector(v1);
-    //     v1.push_back(2);
-    //     v1.push_back(4);
-    //     v1.push_back(6);
-	// 	print_vector(v1);
-    //     v1.push_back(8);
-    //     v1.push_back(10);
-	// 	print_vector(v1);
+        std::vector<int> v1;
+		print_vector(v1);
+        v1.push_back(1);
+		print_vector(v1);
+        v1.push_back(3);
+		print_vector(v1);
+        v1.push_back(5);
+		print_vector(v1);
+        v1.push_back(7);
+        v1.push_back(9);
+		print_vector(v1);
+        v1.push_back(2);
+        v1.push_back(4);
+        v1.push_back(6);
+		print_vector(v1);
+        v1.push_back(8);
+        v1.push_back(10);
+		print_vector(v1);
 
-    //     // std::vector<int> v2(v1);
-	// 	// print_vector(v2);
-    //     // v2.push_back(11);
-	// 	// print_vector(v2);
+        std::vector<int> v2(v1);
+		print_vector(v2);
+        v2.push_back(11);
+		print_vector(v2);
 
-    //     std::vector<int> v3(10, 3);
-	// 	print_vector(v3);
-    // }
+        std::vector<int> v3(10, 3);
+		print_vector(v3);
+    }
 
 
-    // {
-    //     // TEST FT::VECTOR
-	// 	std::cout << std::endl << "   --- FT::VECTOR.PUSH_BACK --- " << std::endl;
+    {
+        // TEST FT::VECTOR
+		std::cout << std::endl << "   --- FT::VECTOR.PUSH_BACK --- " << std::endl;
 
-    //     ft::vector<int> v1;
-	// 	print_vector(v1);
-    //     v1.push_back(1);
-	// 	print_vector(v1);
-    //     v1.push_back(3);
-	// 	print_vector(v1);
-    //     v1.push_back(5);
-	// 	print_vector(v1);
-    //     v1.push_back(7);
-    //     v1.push_back(9);
-	// 	print_vector(v1);
-    //     v1.push_back(2);
-    //     v1.push_back(4);
-    //     v1.push_back(6);
-	// 	print_vector(v1);
-    //     v1.push_back(8);
-    //     v1.push_back(10);
-	// 	print_vector(v1);
+        ft::vector<int> v1;
+		print_vector(v1);
+        v1.push_back(1);
+		print_vector(v1);
+        v1.push_back(3);
+		print_vector(v1);
+        v1.push_back(5);
+		print_vector(v1);
+        v1.push_back(7);
+        v1.push_back(9);
+		print_vector(v1);
+        v1.push_back(2);
+        v1.push_back(4);
+        v1.push_back(6);
+		print_vector(v1);
+        v1.push_back(8);
+        v1.push_back(10);
+		print_vector(v1);
 
-    //     // ft::vector<int> v2(v1);
-	// 	// print_vector(v2);
-    //     // v2.push_back(11);
-	// 	// print_vector(v2);
+        ft::vector<int> v2(v1);
+		print_vector(v2);
+        v2.push_back(11);
+		print_vector(v2);
 
-    //     ft::vector<int> v3(10, 3);
-	// 	print_vector(v3);
+        ft::vector<int> v3(10, 3);
+		print_vector(v3);
 
-    // }
+    }
 
     // {
     //     // TEST STD::STACK

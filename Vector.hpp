@@ -32,10 +32,13 @@ public:
 
 	// 23.2.4.1 construct/copy/destroy:	
 	explicit vector(const allocator_type& alloc = allocator_type())
-	: _alloc(alloc), _start(_alloc.allocate(0)), _end(_start), _end_capa(_end) {}
+	: _alloc(alloc), _start(_alloc.allocate(0)), _end(_start), _end_capa(_end) {
+		// std::cout << "default vector constructor called" << std::endl;
+	}
 
 	explicit vector(size_type n, const T& v = T(), const allocator_type& alloc = allocator_type())
 	: _alloc(alloc), _start(_alloc.allocate(n)), _end(_start + n), _end_capa(_end) {
+		// std::cout << "n v vector constructor called" << std::endl;
 		assign(n, v);
 	}
 
@@ -43,10 +46,15 @@ public:
 	vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 			typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) // TODO - replace std::is_integral by ft::is_integral
 	: vector(alloc) {
+		// std::cout << "iterator vector constructor called" << std::endl;
 		assign(first, last);
 	}
 
-	// vector(const vector<T,allocator_type>& x);
+	vector(const vector<T,allocator_type>& src)
+	: vector(src.get_allocator()) {
+		// std::cout << "copy vector constructor called" << std::endl;
+		assign(src.begin(), src.end());
+	}
 
 	~vector() {
 		clear();
