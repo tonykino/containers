@@ -94,7 +94,7 @@ public:
 
 		if (n <= capacity()) return ;
 
-		std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
+		// std::cout << "Reserve " << n << " (current: " << capacity() << ")" << std::endl;
 		size_type old_size = size();
 		
 		// allocate new space
@@ -153,8 +153,8 @@ public:
 
 		// Next, move right part from n
 		iterator new_end = _end + n;
-		iterator new_pos = new_end;
-		for (iterator cur = _end; cur >= pos; cur--, new_pos--) {
+		iterator new_pos = new_end - 1;
+		for (iterator cur = _end - 1; cur >= pos; cur--, new_pos--) {
 			// std::cout << "2 begin:" << begin() << " pos:" << pos << std::endl;
 			_alloc.construct(new_pos, *cur);
 		}
@@ -170,7 +170,8 @@ public:
 	template <class InputIterator>
 	void insert(iterator pos, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) { // enable_if is needed to do this
-		std::cout << "I came here" << std::endl;
+		// std::cout << "I came here" << std::endl;
+		// std::cout << "0 begin:" << begin() << " end:" << end() << " end_capa:" << _end_capa << " pos:" << pos << std::endl;
 		difference_type n = last - first;
 		if (size() + n > capacity()) {
 			// We need to keep the diff to update pos to the new reserved area
@@ -178,21 +179,33 @@ public:
 			reserve(std::max<size_type>(n, 2 * capacity()));
 			pos = _start + diff;
 		}
+		
+		// std::cout << "1 begin:" << begin() << " end:" << end() << " end_capa:" << _end_capa << " pos:" << pos << std::endl;
+
+		// std::cout << "here s:" << size() << " c:" << capacity() << " | ";
+		// for (iterator it = begin(); it < end(); it++)
+		// 	std::cout << *it << " ";
+		// std::cout << std::endl;
 
 		// Next, move right part from n
 		iterator new_end = _end + n;
-		iterator new_pos = new_end;
-		for (iterator cur = _end; cur >= pos; cur--, new_pos--) {
-			// std::cout << "2 begin:" << begin() << " pos:" << pos << std::endl;
+		iterator new_pos = new_end - 1;
+		for (iterator cur = _end - 1; cur >= pos; cur--, new_pos--) {
+			// std::cout << "v:" << *cur << " from:" << cur << " to:" << new_pos << std::endl;
 			_alloc.construct(new_pos, *cur);
 		}
 		_end = new_end;
 
-		// // Insert input
-		// for (iterator cur = first; cur < last; cur++) {
-		// 	// std::cout << "3 begin:" << begin() << " pos:" << pos << std::endl;
-		// 	_alloc.construct();
-		// }
+		// std::cout << "here s:" << size() << " c:" << capacity() << " | ";
+		// for (iterator it = begin(); it < end(); it++)
+		// 	std::cout << *it << " ";
+		// std::cout << std::endl;
+
+		// Insert input
+		for (size_type i = 0; first + i < last; i++) {
+			// std::cout << "3 begin:" << begin() << " pos:" << pos << std::endl;
+			_alloc.construct(pos + i, *(first + i));
+		}
 	}
 	
 	// iterator erase(iterator position);
