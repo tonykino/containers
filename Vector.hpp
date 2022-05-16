@@ -85,10 +85,10 @@ public:
 	const_iterator begin() const { return _start; }
 	iterator end() { return _end; }
 	const_iterator end() const { return _end; }
-	// reverse_iterator rbegin();
-	// const_reverse_iterator rbegin() const;
-	// reverse_iterator rend();
-	// const_reverse_iterator rend() const;
+	reverse_iterator rbegin() { return reverse_iterator(_end); }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator(_end); }
+	reverse_iterator rend() { return reverse_iterator(_start); }
+	const_reverse_iterator rend() const { return const_reverse_iterator(_start); }
 
 	// // 23.2.4.2 capacity:
 	size_type size() const {
