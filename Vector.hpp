@@ -47,6 +47,7 @@ public:
 	}
 
 	// vector(const vector<T,allocator_type>& x);
+
 	~vector() {
 		clear();
 		_alloc.deallocate(_start, capacity());
@@ -55,7 +56,8 @@ public:
 	// vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x);
 
 	template <class InputIterator>
-	void assign(InputIterator first, InputIterator last) { // todo : use enable_if
+	void assign(InputIterator first, InputIterator last,
+				typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) { // TODO - replace std::is_integral by ft::is_integral
 		clear();
 		insert(begin(), first, last);
 	}
@@ -65,7 +67,7 @@ public:
 		insert(begin(), n, val);
 	}
 
-	// allocator_type get_allocator() const;
+	allocator_type get_allocator() const { return _alloc; }
 
 	// iterators:
 	iterator begin() { return _start; }
