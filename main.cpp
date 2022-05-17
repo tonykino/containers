@@ -42,6 +42,45 @@ int main(void)
 		
 	// }
 
+	{
+		std::cout << std::endl << "   --- STD::VECTOR CONST ITERATOR ---" << std::endl;
+
+		std::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+
+		std::cout << "1. "; print_vector(v1);
+
+		v1.insert(v1.begin() + 4, 8, 42);
+
+		std::cout << "2. "; print_vector(v1);
+
+		std::vector<int>::const_iterator const_it1(v1.begin());
+		std::vector<int>::const_iterator const_it2(v1.begin() + 2);
+		std::cout << "Const_it1:" << *const_it1 << " Const_it2:" << *const_it2 << std::endl;
+
+		std::cout << "A fini const it" << std::endl;
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR CONST ITERATOR ---" << std::endl;
+
+		ft::vector<int> v1;
+		for (int i = 0; i < 7; i++)
+			v1.push_back(i);
+
+		std::cout << "1. "; print_vector(v1);
+
+		v1.insert(v1.begin() + 4, 8, 42);
+
+		std::cout << "2. "; print_vector(v1);
+
+		ft::vector<int>::const_iterator const_it1(v1.begin());
+		ft::vector<int>::const_iterator const_it2(v1.begin() + 2);
+		std::cout << "Const_it1:" << *const_it1 << " Const_it2:" << *const_it2 << std::endl;
+
+		std::cout << "A fini const it" << std::endl;
+	}
 
 	{
 		// TEST STD::VECTOR.CONSTRUCTORS
@@ -118,6 +157,8 @@ int main(void)
 		print_vector(v);
 		v.insert(v.begin() + 4, 3, 42);
 		print_vector(v);
+		v.insert(v.begin() + 8, 100, 100);
+		print_vector(v);
 	}
 
 	{
@@ -130,6 +171,8 @@ int main(void)
 		v.insert(v.begin() + 3, 4);
 		print_vector(v);
 		v.insert(v.begin() + 4, 3, 42);
+		print_vector(v);
+		v.insert(v.begin() + 8, 100, 100);
 		print_vector(v);
 	}
 

@@ -128,7 +128,7 @@ public:
 	}
 
 	// element access:
-	reference		operator[](size_type pos)		  { return begin()[pos]; }
+	reference		operator[](size_type pos)		{ return begin()[pos]; }
 	const_reference operator[](size_type pos) const { return begin()[pos]; }
 	reference 		front()		  { return begin()[0]; }
 	const_reference front() const { return begin()[0]; }
@@ -222,7 +222,8 @@ private:
 		if (size() + n <= capacity()) return pos;
 
 		difference_type diff = pos - begin();
-		reserve(std::max<size_type>(n, 2 * size()));
+		// std::cout << "n:" << n << " size:" << size() << std::endl;
+		reserve(std::max<size_type>(n + size(), 2 * size()));
 		return begin() + diff;
 	}
 };
