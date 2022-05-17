@@ -159,6 +159,8 @@ int main(void)
 		print_vector(v);
 		v.insert(v.begin() + 8, 100, 100);
 		print_vector(v);
+		v.insert(v.end() - 1, 0, 42);
+		print_vector(v);
 	}
 
 	{
@@ -174,6 +176,9 @@ int main(void)
 		print_vector(v);
 		v.insert(v.begin() + 8, 100, 100);
 		print_vector(v);
+		v.insert(v.end() - 1, 0, 42);
+		print_vector(v);
+	
 	}
 
 	{

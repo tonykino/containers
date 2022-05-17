@@ -222,6 +222,8 @@ private:
 	iterator		_end_capa;
 
 	void _shiftRight(iterator pos, size_type n) {
+		if (n == 0) return;
+
 		iterator new_end = end() + n;
 		iterator new_pos = new_end - 1;
 		for (iterator it = end() - 1; it >= pos; it--, new_pos--) {
@@ -232,6 +234,8 @@ private:
 	}
 
 	void _shiftLeft(iterator pos, size_type n) {
+		if (n == 0) return;
+		
 		for (iterator it = pos; it < end() - n; it++) {
 			_alloc.destroy(it);
 			_alloc.construct(it, *(it + n));
