@@ -410,6 +410,9 @@ int main(void)
 		foo.swap(bar);
 		print_vector(foo);
 		print_vector(bar);
+		swap(foo, bar);
+		print_vector(foo);
+		print_vector(bar);
 	}
 
 	{
@@ -421,6 +424,9 @@ int main(void)
 		print_vector(foo);
 		print_vector(bar);
 		foo.swap(bar);
+		print_vector(foo);
+		print_vector(bar);
+		swap(foo, bar);
 		print_vector(foo);
 		print_vector(bar);
 	}
