@@ -115,34 +115,34 @@ int main(void)
 	}
 
 	{
-		// TEST STD::VECTOR.OPERATOR==
+		// TEST STD::VECTOR.OPERATOR=
 		std::cout << std::endl << "   --- STD::VECTOR.OPERATOR= ---" << std::endl;
 
 		std::vector<int> foo (3,0);
   		std::vector<int> bar (5,0);
-		print_vector(foo);
-		print_vector(bar);
+		std::cout << "foo: "; print_vector(foo);
+		std::cout << "bar: "; print_vector(bar);
 
 		bar = foo;
 		foo = std::vector<int>();
 
-		print_vector(foo);
-		print_vector(bar);
+		std::cout << "foo: "; print_vector(foo);
+		std::cout << "bar: "; print_vector(bar);
 	}
 
 	{
-		// TEST FT::VECTOR.OPERATOR==
+		// TEST FT::VECTOR.OPERATOR=
 		std::cout << std::endl << "   --- FT::VECTOR.OPERATOR= ---" << std::endl;
 		
 		ft::vector<int> foo (3,0);
   		ft::vector<int> bar (5,0);
-		print_vector(foo);
-		print_vector(bar);
+		std::cout << "foo: "; print_vector(foo);
+		std::cout << "bar: "; print_vector(bar);
 
 		bar = foo;
 		foo = ft::vector<int>();
-		print_vector(foo);
-		print_vector(bar);
+		std::cout << "foo: "; print_vector(foo);
+		std::cout << "bar: "; print_vector(bar);
 	}
 
 
@@ -456,6 +456,26 @@ int main(void)
 		swap(foo, bar);
 		print_vector(foo);
 		print_vector(bar);
+
+		std::cout << std::endl;
+		
+		std::vector<int> mike(83, 8);
+		std::vector<int> bob(84, 7);
+		std::cout << "mike "; print_vector(mike);
+		std::cout << "bob "; print_vector(bob);
+
+		mike.erase(mike.begin() + 5, mike.end());
+		mike.insert(mike.begin() + 5, 4, 3);
+		bob.erase(bob.begin() + 42, bob.end());
+		
+		std::cout << "mike "; print_vector(mike);
+		std::cout << "bob "; print_vector(bob);
+
+		bob.swap(mike);
+
+		std::cout << "mike "; print_vector(mike);
+		std::cout << "bob "; print_vector(bob);
+
 	}
 
 	{
@@ -472,6 +492,25 @@ int main(void)
 		swap(foo, bar);
 		print_vector(foo);
 		print_vector(bar);
+
+		std::cout << std::endl;
+		
+		ft::vector<int> mike(83, 8);
+		ft::vector<int> bob(84, 7);
+		std::cout << "mike "; print_vector(mike);
+		std::cout << "bob "; print_vector(bob);
+
+		mike.erase(mike.begin() + 5, mike.end());
+		mike.insert(mike.begin() + 5, 4, 3);
+		bob.erase(bob.begin() + 42, bob.end());
+		
+		std::cout << "mike "; print_vector(mike);
+		std::cout << "bob "; print_vector(bob);
+
+		bob.swap(mike);
+
+		std::cout << "mike "; print_vector(mike);
+		std::cout << "bob "; print_vector(bob);
 	}
 
 	{

@@ -62,9 +62,6 @@ public:
 	
 	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) { // TODO - bugfix to do here, check test operator= and swap to see inconsistency
 		clear();
-		_alloc.deallocate(_start, capacity());
-		_end_capa = begin() + rhs.capacity(); 
-		_start = _alloc.allocate(rhs.capacity());
 		assign(rhs.begin(), rhs.end());
 		return *this;
 	}
@@ -184,13 +181,38 @@ public:
 	}
 
 	void swap(vector & x) {
-		vector temp(x);
-		x = *this;
-		*this = temp;
+		allocator_type	tmp_alloc = x._alloc;
+		iterator		tmp_start = x._start;
+		iterator		tmp_end = x._end;
+		iterator		tmp_end_capa = x._end_capa;
+
+		x._alloc = _alloc;
+		x._start = _start;
+		x._end = _end;
+		x._end_capa = _end_capa;
+
+		_alloc = tmp_alloc;
+		_start = tmp_start;
+		_end = tmp_end;
+		_end_capa = tmp_end_capa;
 	}
 
 	void clear() {
 		erase(begin(), end());
+	}
+
+	void print() {
+		std::cout << "s:" << size() << " c:" << capacity() << " | "; // TODO - To delete
+		for (iterator it = begin(); it < end(); it++)
+			std::cout << *it << " ";
+		std::cout << std::endl;
+	}
+
+	void print() const {
+		std::cout << "s:" << size() << " c:" << capacity() << " | "; // TODO - To delete
+		for (size_type i = 0; begin() + i < end(); i++)
+			std::cout << begin()[i] << " ";
+		std::cout << std::endl;
 	}
 
 private:
