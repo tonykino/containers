@@ -556,6 +556,58 @@ int main(void)
 		std::cout << "foo>=bar:" << (foo >= bar) << " foo>=baz:" << (foo >= baz) << " bar>=baz:" << (bar >= baz) << std::endl;
 	}
 
+	{
+		std::cout << std::endl << "   --- STD::VECTOR ANOTHER INSERT TEST --- " << std::endl;
+
+		std::vector<int> v1 (3,100);
+		std::vector<int>::iterator it;
+
+		it = v1.begin();
+		it = v1.insert ( it , 200 );
+
+		v1.insert (it,2,300);
+
+		// "it" no longer valid, get a new one:
+		it = v1.begin();
+
+		std::vector<int> v2 (2,400);
+		v1.insert (it+2,v2.begin(),v2.end());
+
+		int myarray [] = { 501,502,503 };
+		v1.insert (v1.begin(), myarray, myarray+3);
+
+		std::cout << "v1 contains:";
+		for (it=v1.begin(); it<v1.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
+
+	{
+		std::cout << std::endl << "   --- FT::VECTOR ANOTHER INSERT TEST --- " << std::endl;
+
+		ft::vector<int> v1 (3,100);
+		ft::vector<int>::iterator it;
+
+		it = v1.begin();
+		it = v1.insert ( it , 200 );
+
+		v1.insert (it,2,300);
+		
+		// "it" no longer valid, get a new one:
+		it = v1.begin();
+
+		ft::vector<int> v2 (2,400);
+		v1.insert (v1.begin() + 2, v2.begin(),v2.end());
+
+		int myarray [] = { 501,502,503 };
+		v1.insert (v1.begin(), myarray, myarray+3);
+
+		std::cout << "v1 contains:";
+		for (it=v1.begin(); it<v1.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
+
     // {
     //     // TEST STD::STACK
     //     std::cout << "   --- STD::STACK --- " << std::endl;

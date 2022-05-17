@@ -149,8 +149,9 @@ public:
 	void pop_back() { erase(_end - 1); }
 
 	iterator insert(iterator pos, const T& v) {
+		difference_type n = pos - _start;
 		insert(pos, 1, v);
-		return pos;
+		return _start + n;
 	}
 
 	void insert(iterator pos, size_type n, const T& v) {
