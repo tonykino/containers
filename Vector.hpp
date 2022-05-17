@@ -108,9 +108,10 @@ public:
 
 
 	void reserve(size_type n) {
-		// TODO : bugfix : handle n > max_size()
+		if (n > max_size()) throw std::length_error("vector::reserve");
 		if (n <= capacity()) return ;
 
+		// std::cout << "Reserve " << n << std::endl;
 		size_type old_size = size();
 		iterator new_start = _alloc.allocate(n);
 
