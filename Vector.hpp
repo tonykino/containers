@@ -4,7 +4,6 @@
 #include <memory>
 #include <iostream>
 #include <algorithm>
-#include <type_traits> // todo - to delete
 #include "enable_if.hpp"
 
 namespace ft {
@@ -44,14 +43,14 @@ public:
 
 	template <class InputIterator>
 	vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-			typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) // TODO - replace std::is_integral by ft::is_integral
-	: vector(alloc) {
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
+	: _alloc(alloc), _start(_alloc.allocate(0)), _end(_start), _end_capa(_end) {
 		// std::cout << "iterator vector constructor called" << std::endl;
 		assign(first, last);
 	}
 
 	vector(const vector<T,allocator_type>& src)
-	: vector(src.get_allocator()) {
+	: _alloc(src.get_allocator()), _start(src.get_allocator().allocate(0)), _end(_start), _end_capa(_end) {
 		// std::cout << "copy vector constructor called" << std::endl;
 		assign(src.begin(), src.end());
 	}
@@ -72,7 +71,7 @@ public:
 
 	template <class InputIterator>
 	void assign(InputIterator first, InputIterator last,
-				typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) { // TODO - replace std::is_integral by ft::is_integral
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
 		clear();
 		insert(begin(), first, last);
 	}
@@ -165,7 +164,7 @@ public:
 
 	template <class InputIterator>
 	void insert(iterator pos, InputIterator first, InputIterator last, 
-				typename ft::enable_if<!std::is_integral<InputIterator>::value>::type* = NULL) { // TODO - replace std::is_integral by ft::is_integral
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
 		difference_type n = last - first;
 		pos = _reserve_at(pos, n);
 		_shiftRight(pos, n);
