@@ -36,7 +36,7 @@ public:
 	}
 
 	explicit vector(size_type n, const T& v = T(), const allocator_type& alloc = allocator_type())
-	: _alloc(alloc), _start(_alloc.allocate(n)), _end(_start + n), _end_capa(_end) {
+	: _alloc(alloc), _start(_alloc.allocate(0)), _end(_start), _end_capa(_end) {
 		// std::cout << "n v vector constructor called" << std::endl;
 		assign(n, v);
 	}
@@ -56,11 +56,15 @@ public:
 	}
 
 	~vector() {
+		// for (size_type i = 0; i < size(); i++)
+			// _alloc.destroy(_start + i);
 		clear();
 		_alloc.deallocate(_start, capacity());
+		_end = NULL;
+		_start = NULL;
 	}
 	
-	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) { // TODO - bugfix to do here, check test operator= and swap to see inconsistency
+	vector<T,allocator_type>& operator=(const vector<T,allocator_type>& rhs) {
 		clear();
 		assign(rhs.begin(), rhs.end());
 		return *this;
@@ -199,7 +203,9 @@ public:
 	}
 
 	void clear() {
-		erase(begin(), end());
+		for (size_type i = 0; i < size(); i++)
+			_alloc.destroy(_start + i);
+		_end = begin();
 	}
 
 	void print() {
