@@ -56,8 +56,6 @@ public:
 	}
 
 	~vector() {
-		// for (size_type i = 0; i < size(); i++)
-			// _alloc.destroy(_start + i);
 		clear();
 		_alloc.deallocate(_start, capacity());
 		_end = NULL;
@@ -112,7 +110,6 @@ public:
 		if (n > max_size()) throw std::length_error("vector::reserve");
 		if (n <= capacity()) return ;
 
-		// std::cout << "Reserve " << n << std::endl;
 		size_type old_size = size();
 		iterator new_start = _alloc.allocate(n);
 
@@ -131,6 +128,7 @@ public:
 	// element access:
 	reference		operator[](size_type pos)		{ return begin()[pos]; }
 	const_reference operator[](size_type pos) const { return begin()[pos]; }
+
 	reference 		front()		  { return begin()[0]; }
 	const_reference front() const { return begin()[0]; }
 	reference 		back()		  { return begin()[size() - 1]; }
@@ -150,7 +148,7 @@ public:
 
 	// 23.2.4.3 modifiers:
 	void push_back(const T& v) { insert(_end, v); }
-	void pop_back() { erase(_end - 1); }
+	void pop_back() 		   { erase(_end - 1); }
 
 	iterator insert(iterator pos, const T& v) {
 		difference_type n = pos - _start;
@@ -193,7 +191,7 @@ public:
 		return first;
 	}
 
-	void swap(vector & x) {
+	void swap(vector & x) { // todo - refactor this shitty code
 		allocator_type	tmp_alloc = x._alloc;
 		iterator		tmp_start = x._start;
 		iterator		tmp_end = x._end;
@@ -214,20 +212,6 @@ public:
 		for (size_type i = 0; i < size(); i++)
 			_alloc.destroy(_start + i);
 		_end = begin();
-	}
-
-	void print() {
-		std::cout << "s:" << size() << " c:" << capacity() << " | "; // TODO - To delete
-		for (iterator it = begin(); it < end(); it++)
-			std::cout << *it << " ";
-		std::cout << std::endl;
-	}
-
-	void print() const {
-		std::cout << "s:" << size() << " c:" << capacity() << " | "; // TODO - To delete
-		for (size_type i = 0; begin() + i < end(); i++)
-			std::cout << begin()[i] << " ";
-		std::cout << std::endl;
 	}
 
 private:
@@ -268,7 +252,6 @@ private:
 		if (size() + n <= capacity()) return pos;
 
 		difference_type diff = pos - begin();
-		// std::cout << "n:" << n << " size:" << size() << std::endl;
 		reserve(std::max<size_type>(n + size(), 2 * size()));
 		return begin() + diff;
 	}
@@ -285,7 +268,7 @@ bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
 }
 
 template <class T, class Allocator>
-bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+bool operator<(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
 	return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); // todo - use ft::lexicographical_compare
 }
 
@@ -295,7 +278,7 @@ bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
 }
 
 template <class T, class Allocator>
-bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+bool operator>(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
 	return y < x;
 }
 
@@ -311,7 +294,6 @@ bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
 
 template <class T, class Allocator>
 void swap(vector<T,Allocator>& x, vector<T,Allocator>& y) { x.swap(y); }
-
 
 }
 #endif
