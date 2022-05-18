@@ -1,11 +1,11 @@
 #ifndef STACK_TPP
 #define STACK_TPP
 
-#include <vector> // TO REMOVE
+#include "Vector.hpp"
 
 namespace ft {
 	
-template <class T, class Container = std::vector<T> > // TODO - replace std::vector by ft::vector
+template <class T, class Container = ft::vector<T> >
 class stack {
 public:
 	typedef Container container_type;
