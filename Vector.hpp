@@ -160,7 +160,7 @@ public:
 
 	void insert(iterator pos, size_type n, const T& v) {
 		pos = _reserve_at(pos, n);
-		_shiftRight(pos, n);
+		_end = _shiftRight(pos, n);
 		for (iterator cur = pos; cur < pos + n; cur++)
 			_alloc.construct(cur, v);
 	}
@@ -170,18 +170,26 @@ public:
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
 		difference_type n = last - first;
 		pos = _reserve_at(pos, n);
-		_shiftRight(pos, n);
+		_end = _shiftRight(pos, n);
 		for (size_type i = 0; first + i < last; i++)
 			_alloc.construct(pos + i, *(first + i));
 	}
 	
 	iterator erase(iterator pos) {
-		_shiftLeft(pos, 1);
+		if (pos == end() - 1) 
+			_end = _erase_from_to_end(pos);
+		else 
+			_end = _shiftLeft(pos, 1);
+
 		return pos;
 	}
 
 	iterator erase(iterator first, iterator last) {
-		_shiftLeft(first, last - first);
+		if (last == end()) 
+			_end = _erase_from_to_end(first);
+		else 
+			_end = _shiftLeft(first, last - first);
+
 		return first;
 	}
 
@@ -228,8 +236,8 @@ private:
 	iterator		_end;
 	iterator		_end_capa;
 
-	void _shiftRight(iterator pos, size_type n) {
-		if (n == 0) return;
+	iterator _shiftRight(iterator pos, size_type n) {
+		if (n == 0) return end();
 
 		iterator new_end = end() + n;
 		iterator new_pos = new_end - 1;
@@ -237,18 +245,23 @@ private:
 			_alloc.construct(new_pos, *it);
 			_alloc.destroy(it);
 		}
-		_end = new_end;
+		return new_end;
 	}
 
-	void _shiftLeft(iterator pos, size_type n) {
-		if (n == 0) return;
-		
+	iterator _shiftLeft(iterator pos, size_type n) {
 		for (iterator it = pos; it < end() - n; it++) {
 			_alloc.destroy(it);
 			_alloc.construct(it, *(it + n));
 			_alloc.destroy(it + n);
 		}
-		_end = end() - n;
+		return end() - n;
+	}
+
+	iterator _erase_from_to_end(iterator pos) {
+		for (iterator it = pos; it < end(); it++) {
+			_alloc.destroy(it);
+		}
+		return pos;
 	}
 
 	iterator _reserve_at(iterator pos, size_type n) {
