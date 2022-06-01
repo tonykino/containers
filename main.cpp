@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <stack>
-#include "Stack.hpp"
-#include "Vector.hpp"
+#include "stack.hpp"
+#include "vector.hpp"
 
 class Awesome {
 
