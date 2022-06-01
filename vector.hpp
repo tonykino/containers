@@ -176,6 +176,8 @@ public:
 	}
 	
 	iterator erase(iterator pos) {
+		if (pos == end()) return pos;
+
 		_destroy_from_first_to_last(pos, pos + 1);
 		if (pos < end() - 1) 
 			_shiftLeft(pos, 1);
@@ -184,6 +186,8 @@ public:
 	}
 
 	iterator erase(iterator first, iterator last) {
+		if (first == last) return first;
+
 		_destroy_from_first_to_last(first, last);
 		if (last < end()) 
 			_shiftLeft(first, last - first);
