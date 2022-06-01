@@ -190,8 +190,8 @@ public:
 
 		_destroy_from_first_to_last(first, last);
 		if (last < end()) 
-			_shiftLeft(first, last - first);
-		_end = end() - last + first;
+			_shiftLeft(first, std::distance(first, last));
+		_end = end() - std::distance(first, last);
 
 		return first;
 	}
