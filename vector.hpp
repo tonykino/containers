@@ -158,9 +158,10 @@ public:
 
 	void insert(iterator pos, size_type n, const T& v) {
 		pos = _reserve_at(pos, n);
-		_end = _shiftRight(pos, n);
+		_shiftRight(pos, n);
 		for (iterator cur = pos; cur < pos + n; cur++)
 			_alloc.construct(cur, v);
+		_end = _end + n;
 	}
 
 	template <class InputIterator>
@@ -168,25 +169,25 @@ public:
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
 		difference_type n = last - first;
 		pos = _reserve_at(pos, n);
-		_end = _shiftRight(pos, n);
+		_shiftRight(pos, n);
 		for (size_type i = 0; first + i < last; i++)
 			_alloc.construct(pos + i, *(first + i));
+		_end = _end + n;
 	}
 	
 	iterator erase(iterator pos) {
-		if (pos == end() - 1) 
-			_end = _erase_from_to_end(pos);
-		else 
-			_end = _shiftLeft(pos, 1);
-
+		_destroy_from_first_to_last(pos, pos + 1);
+		if (pos < end() - 1) 
+			_shiftLeft(pos, 1);
+		_end = end() - 1;
 		return pos;
 	}
 
 	iterator erase(iterator first, iterator last) {
-		if (last == end()) 
-			_end = _erase_from_to_end(first);
-		else 
-			_end = _shiftLeft(first, last - first);
+		_destroy_from_first_to_last(first, last);
+		if (last < end()) 
+			_shiftLeft(first, last - first);
+		_end = end() - last + first;
 
 		return first;
 	}
@@ -220,32 +221,27 @@ private:
 	iterator		_end;
 	iterator		_end_capa;
 
-	iterator _shiftRight(iterator pos, size_type n) {
-		if (n == 0) return end();
+	void _shiftRight(iterator pos, size_type n) {
+		if (n == 0) return;
 
-		iterator new_end = end() + n;
-		iterator new_pos = new_end - 1;
+		iterator new_pos = end() + n - 1;
 		for (iterator it = end() - 1; it >= pos; it--, new_pos--) {
 			_alloc.construct(new_pos, *it);
 			_alloc.destroy(it);
 		}
-		return new_end;
 	}
 
-	iterator _shiftLeft(iterator pos, size_type n) {
+	void _shiftLeft(iterator pos, size_type n) {
 		for (iterator it = pos; it < end() - n; it++) {
-			_alloc.destroy(it);
 			_alloc.construct(it, *(it + n));
 			_alloc.destroy(it + n);
 		}
-		return end() - n;
 	}
 
-	iterator _erase_from_to_end(iterator pos) {
-		for (iterator it = pos; it < end(); it++) {
+	void _destroy_from_first_to_last(iterator first, iterator last) {
+		for (iterator it = first; it < last; it++) {
 			_alloc.destroy(it);
 		}
-		return pos;
 	}
 
 	iterator _reserve_at(iterator pos, size_type n) {
