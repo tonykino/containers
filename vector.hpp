@@ -4,7 +4,8 @@
 #include <memory>
 #include <iostream>
 #include <algorithm>
-#include "enable_if.hpp"
+#include "type_traits.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft {
 	
@@ -18,14 +19,10 @@ public:
 	typedef typename Allocator::const_reference const_reference;
 	typedef typename Allocator::pointer pointer;
 	typedef typename Allocator::const_pointer const_pointer;
-
-	// typedef std::iterator<pointer, value_type> iterator; // TODO
-	typedef pointer iterator; // TODO, should be the above line ?
-	// typedef std::iterator<const_pointer, value_type> const_iterator; // TODO
-	typedef const_pointer const_iterator; // TODO, should be the above line ?
-	typedef std::reverse_iterator<iterator> reverse_iterator; // TODO, use ft::reverse_iterator
-	typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // TODO, use ft::reverse_iterator
-	
+	typedef pointer iterator; // TODO, use a subclass of iterator inside vector ?
+	typedef const_pointer const_iterator; // TODO, use a subclass of iterator inside vector ?
+	typedef ft::reverse_iterator<iterator> reverse_iterator;
+	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 	typedef std::ptrdiff_t difference_type;
 	typedef std::size_t size_type;
 

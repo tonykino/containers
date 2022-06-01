@@ -1,5 +1,5 @@
-#ifndef ENABLE_IF_TPP
-#define ENABLE_IF_TPP
+#ifndef TYPE_TRAITS_HPP
+#define TYPE_TRAITS_HPP
 
 namespace ft {
 
