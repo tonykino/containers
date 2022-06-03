@@ -290,7 +290,9 @@ bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
 }
 
 template <class T, class Allocator>
-void swap(vector<T,Allocator>& x, vector<T,Allocator>& y) { x.swap(y); }
+void swap(vector<T,Allocator>& x, vector<T,Allocator>& y) { 
+	x.swap(y);
+}
 
 }
 #endif
