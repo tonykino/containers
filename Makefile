@@ -3,7 +3,7 @@ NAME		=	containers
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -MD
 
-SRCS		=	main.cpp
+SRCS		=	main.cpp test_stack.cpp test_vector.cpp
 OBJS		=	$(SRCS:.cpp=.o)
 
 all:$(NAME)
