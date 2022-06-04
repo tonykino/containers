@@ -11,7 +11,12 @@ int main(void)
 	RBTree<int> tree;
 	int values[] = {41, 38, 31, 12, 19, 8, 35};
 	for (int i = 0; i < 7; i++) {
-		tree.kinsert(values[i]);
+		if (i%2) {
+			tree.kinsert(values[i]);
+		} else {
+			node* n = new node(values[i], tree.get_sentinel());
+			tree.insert(n);
+		}
 	}
 
 	tree.print();
