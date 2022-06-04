@@ -6,10 +6,12 @@
 template <class T>
 class RBTree {
 public:
+    typedef RBNode<T> node;
+
     RBTree(): _root(NULL) {}
-    void insert(RBNode<T> *z) {
-        RBNode<T> *y = NULL;
-        RBNode<T> *x = _root;
+    void insert(node *z) {
+        node *y = NULL;
+        node *x = _root;
 
         while (x) {
             y = x;
@@ -26,18 +28,27 @@ public:
             y->_left = z;
         else
             y->_right = z;
-
-
     }
 
-    
+    node* search(T k) {
+        return _root->search(k);
+    }
+
+    node* min() {
+        return _root->min();
+    }
+
+    node* max() {
+        return _root->max();
+    }
+
     void print(void) {
-        RBNode<T>::inorder_walk(_root);
+        node::inorder_walk(_root);
     }
 
 
 private:
-    RBNode<T>* _root;
+    node* _root;
 
 };
 

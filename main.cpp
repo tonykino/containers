@@ -6,24 +6,44 @@
 
 int main(void)
 {
+	typedef RBNode<int> node;
+
 	RBTree<int> tree;
-	RBNode<int> foo1 = RBNode<int>(41);
-	RBNode<int> foo2 = RBNode<int>(38);
-	RBNode<int> foo3 = RBNode<int>(31);
-	RBNode<int> foo4 = RBNode<int>(12);
-	RBNode<int> foo5 = RBNode<int>(19);
-	RBNode<int> foo6 = RBNode<int>(8);
-	RBNode<int> foo7 = RBNode<int>(35);
+	int values[] = {41, 38, 31, 12, 19, 8, 35};
+	for (int i = 0; i < 7; i++) {
+		node *n = new node(values[i]);
+		tree.insert(n);
+	}
 
-
-	tree.insert(&foo1);
-	tree.insert(&foo2);
-	tree.insert(&foo3);
-	tree.insert(&foo4);
-	tree.insert(&foo5);
-	tree.insert(&foo6);
-	tree.insert(&foo7);
-
+	std::cout << "RBTree :" << std::endl;
 	tree.print();
+
+	std::cout << std::endl;
+	std::cout << "min: " << *tree.min() << std::endl;
+	std::cout << "max: " << *tree.max() << std::endl; 
+
+	node *bar = tree.search(19);
+	std::cout << "search 19: " << *bar << std::endl;
+
+	std::cout << std::endl << "Successors:" << std::endl;
+	for (int i = 0; i < 7; i++) {
+		node *n = tree.search(values[i]);
+		if (n->successor())
+			std::cout << values[i] << ": " << *n->successor() << std::endl;
+		else
+			std::cout << values[i] << " dont have successor" << std::endl;
+	}
+
+	std::cout << std::endl << "Predecessors:" << std::endl;
+	for (int i = 0; i < 7; i++) {
+		node *n = tree.search(values[i]);
+		if (n->predecessor())
+			std::cout << values[i] << ": " << *n->predecessor() << std::endl;
+		else
+			std::cout << values[i] << " dont have predecessor" << std::endl;
+	}
+
+	std::cout << std::endl;
+
 	return 0;
 }
