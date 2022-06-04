@@ -11,14 +11,11 @@ int main(void)
 	RBTree<int> tree;
 	int values[] = {41, 38, 31, 12, 19, 8, 35};
 	for (int i = 0; i < 7; i++) {
-		node *n = new node(values[i]);
-		tree.insert(n);
+		tree.kinsert(values[i]);
 	}
 
-	std::cout << "RBTree :" << std::endl;
 	tree.print();
 
-	std::cout << std::endl;
 	std::cout << "min: " << *tree.min() << std::endl;
 	std::cout << "max: " << *tree.max() << std::endl; 
 
@@ -28,8 +25,8 @@ int main(void)
 	std::cout << std::endl << "Successors:" << std::endl;
 	for (int i = 0; i < 7; i++) {
 		node *n = tree.search(values[i]);
-		if (n->successor())
-			std::cout << values[i] << ": " << *n->successor() << std::endl;
+		if (tree.successor(n) != tree.get_sentinel())
+			std::cout << values[i] << ": " << *tree.successor(n) << std::endl;
 		else
 			std::cout << values[i] << " dont have successor" << std::endl;
 	}
@@ -37,8 +34,8 @@ int main(void)
 	std::cout << std::endl << "Predecessors:" << std::endl;
 	for (int i = 0; i < 7; i++) {
 		node *n = tree.search(values[i]);
-		if (n->predecessor())
-			std::cout << values[i] << ": " << *n->predecessor() << std::endl;
+		if (tree.predecessor(n) != tree.get_sentinel())
+			std::cout << values[i] << ": " << *tree.predecessor(n) << std::endl;
 		else
 			std::cout << values[i] << " dont have predecessor" << std::endl;
 	}
