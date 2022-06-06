@@ -121,18 +121,16 @@ private:
 	void left_rotate(node *x) {
 		node *y = x->_right;
 		x->_right = y->_left;
-		if (y->_left != _nil) {
+		if (y->_left != _nil)
 			y->_left->_p = x;
-		}
 
 		y->_p = x->_p;
-		if (x->_p == _nil) {
+		if (x->_p == _nil)
 			_root = y;
-		} else if (x == x->_p->_left) {
+		else if (x == x->_p->_left)
 			x->_p->_left = y;
-		} else {
+		else
 			x->_p->_right = y;
-		}
 		y->_left = x;
 		x->_p = y;
 	}
@@ -140,22 +138,19 @@ private:
 	void right_rotate(node *x) {
 		node *y = x->_left;
 		x->_left = y->_right;
-		if (y->_right != _nil) {
+		if (y->_right != _nil)
 			y->_right->_p = x;
-		}
 
 		y->_p = x->_p;
-		if (x->_p == _nil) {
+		if (x->_p == _nil)
 			_root = y;
-		} else if (x == x->_p->_right) {
+		else if (x == x->_p->_right)
 			x->_p->_right = y;
-		} else {
+		else
 			x->_p->_left = y;
-		}
 		y->_right = x;
 		x->_p = y;
 	}
-
 };
 
 #endif
