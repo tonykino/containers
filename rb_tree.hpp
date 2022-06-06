@@ -64,10 +64,34 @@ public:
 	}
 
 
+	// void print(void) {
+	// 	std::cout << "RBTree :" << std::endl;
+	// 	node::inorder_walk(_root, _nil);
+	// 	std::cout << "sentinel: " << _nil << std::endl << std::endl;
+	// }
+
 	void print(void) {
-		std::cout << "RBTree :" << std::endl;
-		node::inorder_walk(_root, _nil);
-		std::cout << "sentinel: " << _nil << std::endl << std::endl;
+		print("", _root, false);
+	}
+
+	void print(const std::string& prefix, const node* node, bool isLeft)
+	{
+	
+		std::cout << prefix;
+		std::cout << (isLeft ? "├──" : "└──" );
+
+		// print the value of the node
+		if (node == _nil)
+			std::cout << "NIL:B" << std::endl;
+		else
+			std::cout << node->_key << ":" << (node->_c == black ? "B" : "R") << std::endl;
+
+		if( node != _nil )
+		{
+			// enter the next tree level - left and right branch
+			print( prefix + (isLeft ? "│   " : "    "), node->_left, true);
+			print( prefix + (isLeft ? "│   " : "    "), node->_right, false);
+		}
 	}
 
 	node* get_sentinel(void) {
