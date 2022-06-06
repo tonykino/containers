@@ -43,6 +43,36 @@ public:
 		insert_fixup(z);
 	}
 
+	void remove(node *z) {
+		node *y = z;
+		node *x = NULL;
+		Color y_color = y->_c;
+		if (z->_left == _nil) {
+			x = z->_right;
+			_transplant(z, z->_right);
+		} else if (z->_right == _nil) {
+			x = z->_left;
+			_transplant(z, z->_left);
+		} else {
+			y = z->_right->min(_nil);
+			y_color = y->_c;
+			x = y->_right;
+			if (x->_p == z) {
+				x->_p = y;
+			} else {
+				_transplant(y, y->_right);
+				y->_right = z->_right;
+				y->_right->_p = y;
+			}
+			_transplant(z, y);
+			y->_left = z->_left;
+			y->_left->_p = y;
+			y->_c = z->_c;
+		}
+		if (y_color == black)
+			_remove_fixup(x);
+	}
+
 	node* search(T k) {
 		return _root->search(k, _nil);
 	}
@@ -63,24 +93,15 @@ public:
 		return n->predecessor(_nil);
 	}
 
-
-	// void print(void) {
-	// 	std::cout << "RBTree :" << std::endl;
-	// 	node::inorder_walk(_root, _nil);
-	// 	std::cout << "sentinel: " << _nil << std::endl << std::endl;
-	// }
-
 	void print(void) {
 		print("", _root, false);
+		std::cout << std::endl;
 	}
 
-	void print(const std::string& prefix, const node* node, bool isLeft)
+	void print(const std::string &prefix, const node *node, bool is_left)
 	{
-	
-		std::cout << prefix;
-		std::cout << (isLeft ? "├──" : "└──" );
-
-		// print the value of the node
+		if (node != _root)
+			std::cout << prefix << (is_left ? "├──" : "└──" );
 		if (node == _nil)
 			std::cout << "NIL:B" << std::endl;
 		else
@@ -88,9 +109,8 @@ public:
 
 		if( node != _nil )
 		{
-			// enter the next tree level - left and right branch
-			print( prefix + (isLeft ? "│   " : "    "), node->_left, true);
-			print( prefix + (isLeft ? "│   " : "    "), node->_right, false);
+			print( prefix + (is_left ? "│   " : "    "), node->_left, true);
+			print( prefix + (is_left ? "│   " : "    "), node->_right, false);
 		}
 	}
 
@@ -142,6 +162,71 @@ private:
 		_root->_c = black;
 	}
 
+	void _transplant(node *x, node *y) {
+		if (x->_p == _nil)
+			_root = y;
+		else if (x == x->_p->_left)
+			x->_p->_left = y;
+		else
+			x->_p->_right = y;
+		y->_p = x->_p;
+	}
+
+	void _remove_fixup(node *x) {
+		while (x != _root && x->_c == black) {
+			if (x == x->_p->_left) {
+				node *w = x->_p->_right;
+				if (w->_c == red) {
+					w->_c = black;
+					x->_p->_c = red;
+					left_rotate(x->_p);
+					w = x->_p->_right;
+				}
+				if (w->_left->_c == black && w->_right->_c == black) {
+					w->_c = red;
+					x = x->_p;
+				} else {
+					if (w->_right->_c == black) {
+						w->_left->_c = black;
+						w->_c = red;
+						right_rotate(w);
+						w = x->_p->_right;
+					}
+					w->_c = x->_p->_c;
+					x->_p->_c = black;
+					w->_right->_c = black;
+					left_rotate(x->_p);
+					x = _root;
+				}
+			} else {
+				node *w = x->_p->_left;
+				if (w->_c == red) {
+					w->_c = black;
+					x->_p->_c = red;
+					right_rotate(x->_p);
+					w = x->_p->_left;
+				}
+				if (w->_right->_c == black && w->_left->_c == black) {
+					w->_c = red;
+					x = x->_p;
+				} else {
+					if (w->_left->_c == black) {
+						w->_right->_c = black;
+						w->_c = red;
+						left_rotate(w);
+						w = x->_p->_left;
+					}
+					w->_c = x->_p->_c;
+					x->_p->_c = black;
+					w->_left->_c = black;
+					right_rotate(x->_p);
+					x = _root;
+				}
+			}
+		}
+		x->_c = black;
+	}
+
 	void left_rotate(node *x) {
 		node *y = x->_right;
 		x->_right = y->_left;
@@ -175,6 +260,7 @@ private:
 		y->_right = x;
 		x->_p = y;
 	}
+
 };
 
 #endif

@@ -7,8 +7,8 @@ void test_rbt(void)
 	typedef RBNode<int> node;
 
 	RBTree<int> tree;
-	int values[] = {41, 38, 31, 12, 19, 8, 35, 18};
-	for (int i = 0; i < 8; i++) {
+	int values[] = {41, 38, 31, 12, 19, 8};
+	for (int i = 0; i < 6; i++) {
 		if (i%2) {
 			tree.kinsert(values[i]);
 		} else {
@@ -26,7 +26,7 @@ void test_rbt(void)
 	std::cout << "search 19: " << *bar << std::endl;
 
 	std::cout << std::endl << "Successors:" << std::endl;
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 6; i++) {
 		node *n = tree.search(values[i]);
 		if (tree.successor(n) != tree.get_sentinel())
 			std::cout << values[i] << ": " << *tree.successor(n) << std::endl;
@@ -35,7 +35,7 @@ void test_rbt(void)
 	}
 
 	std::cout << std::endl << "Predecessors:" << std::endl;
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 6; i++) {
 		node *n = tree.search(values[i]);
 		if (tree.predecessor(n) != tree.get_sentinel())
 			std::cout << values[i] << ": " << *tree.predecessor(n) << std::endl;
@@ -44,5 +44,11 @@ void test_rbt(void)
 	}
 
 	std::cout << std::endl;
-    tree.print();
+	tree.print();
+
+	for (int i = 0; i < 6; i++) {
+		node *n = tree.min();
+		tree.remove(n);
+		tree.print();
+	}
 }
