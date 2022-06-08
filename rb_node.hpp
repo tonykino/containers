@@ -13,7 +13,7 @@ class RBNode {
 public:
 	typedef RBNode<T> node;
 
-	RBNode(T key = 0, node* sentinel = NULL): _key(key), _left(sentinel), _right(sentinel), _p(sentinel), _c(black) {};
+	RBNode(T key = T(), node* sentinel = NULL): _key(key), _left(sentinel), _right(sentinel), _p(sentinel), _c(black) {};
 
 	friend std::ostream & operator<<(std::ostream & o, node const & rhs) {
 		o << "&:" << &rhs << " key:" << rhs._key << " left:" << rhs._left << " right:" << rhs._right << " p:" << rhs._p << " color:" << rhs._c;
