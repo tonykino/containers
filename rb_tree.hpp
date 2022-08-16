@@ -4,7 +4,7 @@
 #include "rb_node.hpp"
 #include "type_traits.hpp"
 
-template <class T>
+template <typename T>
 class RBTree {
 public:
 	typedef RBNode<T> node;
@@ -76,6 +76,10 @@ public:
 	node* search(T k) {
 		return _root->search(k, _nil);
 	}
+	//
+	// const node* search(T k) const {
+	// 	return _root->search(k, _nil);
+	// }
 
 	node* min() {
 		return _root->min(_nil);
@@ -98,19 +102,20 @@ public:
 		std::cout << std::endl;
 	}
 
-	void print(const std::string &prefix, const node *node, bool is_left)
+	void print(const std::string &prefix, const node *n, bool is_left)
 	{
-		if (node != _root)
+		if (n != _root)
 			std::cout << prefix << (is_left ? "├──" : "└──" );
-		if (node == _nil)
+		if (n == _nil)
 			std::cout << "NIL:B" << std::endl;
 		else
-			std::cout << node->_key << ":" << (node->_c == black ? "B" : "R") << std::endl;
+			std::cout << n->_key.first << ":" << n->_key.second << "(" << (n->_c == black ? "B" : "R") << ")" << std::endl;
+			// std::cout << *n << std::endl;
 
-		if( node != _nil )
+		if( n != _nil )
 		{
-			print( prefix + (is_left ? "│   " : "    "), node->_left, true);
-			print( prefix + (is_left ? "│   " : "    "), node->_right, false);
+			print( prefix + (is_left ? "│   " : "    "), n->_left, true);
+			print( prefix + (is_left ? "│   " : "    "), n->_right, false);
 		}
 	}
 
