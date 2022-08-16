@@ -13,10 +13,11 @@ class RBNode {
 public:
 	typedef RBNode<T> node;
 
-	RBNode(T key = T(), node* sentinel = NULL): _key(key), _left(sentinel), _right(sentinel), _p(sentinel), _c(black) {};
+	RBNode(const T& key = T(), node* sentinel = NULL): _key(key), _left(sentinel), _right(sentinel), _p(sentinel), _c(black) {};
 
 	friend std::ostream & operator<<(std::ostream & o, node const & rhs) {
-		o << "&:" << &rhs << " key:" << rhs._key << " left:" << rhs._left << " right:" << rhs._right << " p:" << rhs._p << " color:" << rhs._c;
+		// TODO - faire en sorte qu'on puisse utiliser cet overload avec une pair as node
+		o << "&:" << &rhs << " key:" << rhs._key.first << ":" << rhs._key.second << " left:" << rhs._left << " right:" << rhs._right << " p:" << rhs._p << " color:" << rhs._c;
 		return o;
 	}
 

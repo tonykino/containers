@@ -20,6 +20,8 @@ public:
 	typedef typename Allocator::pointer pointer;
 	typedef typename Allocator::const_pointer const_pointer;
 	typedef pointer iterator; // TODO, use a subclass of iterator inside vector ?
+	// Some STL implementations use a pointer to stand for the iterator of a vector 
+	// (indeed, pointer arithmetics does a fine job of +=, and other usual iterator manipulations).
 	typedef const_pointer const_iterator; // TODO, use a subclass of iterator inside vector ?
 	typedef ft::reverse_iterator<iterator> reverse_iterator;
 	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
