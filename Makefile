@@ -19,4 +19,5 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all # TODO - Fix this when make -j
+re: fclean
+	make all
