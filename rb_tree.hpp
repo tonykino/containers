@@ -54,7 +54,7 @@ public:
 			x = z->_left;
 			_transplant(z, z->_left);
 		} else {
-			y = z->_right->min(_nil);
+			y = z->_right->min();
 			y_color = y->_c;
 			x = y->_right;
 			if (x->_p == z) {
@@ -74,7 +74,7 @@ public:
 	}
 
 	node* search(T k) {
-		return _root->search(k, _nil);
+		return _root->search(k);
 	}
 	//
 	// const node* search(T k) const {
@@ -82,19 +82,19 @@ public:
 	// }
 
 	node* min() {
-		return _root->min(_nil);
+		return _root->min();
 	}
 
 	node* max() {
-		return _root->max(_nil);
+		return _root->max();
 	}
 
 	node* successor(node *n) {
-		return n->successor(_nil);
+		return n->successor();
 	}
 
 	node* predecessor(node *n) {
-		return n->predecessor(_nil);
+		return n->predecessor();
 	}
 
 	void print(void) {

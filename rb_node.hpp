@@ -13,7 +13,7 @@ class RBNode {
 public:
 	typedef RBNode<T> node;
 
-	RBNode(const T& key = T(), node* sentinel = NULL): _key(key), _left(sentinel), _right(sentinel), _p(sentinel), _c(black) {};
+	RBNode(const T& key = T(), node* sentinel = NULL): _key(key), _left(sentinel), _right(sentinel), _p(sentinel), _c(black), _sentinel(sentinel) {};
 
 	friend std::ostream & operator<<(std::ostream & o, node const & rhs) {
 		// TODO - faire en sorte qu'on puisse utiliser cet overload avec une pair as node
@@ -23,17 +23,18 @@ public:
 
     friend class RBTree<T>;
 
-private:
+// private:
 
 	T _key;
 	node *_left;
 	node *_right;
 	node *_p;
 	Color _c;
+	node *_sentinel;
 
-	node* search(T k, node *sentinel) {
+	node* search(T k) {
 		node* x = this;
-		while (x != sentinel && x->_key != k) {
+		while (x != _sentinel && x->_key != k) {
 			if (k < x->_key)
 				x = x->_left;
 			else
@@ -42,40 +43,40 @@ private:
 		return x;
 	}
 
-	node* min(node *sentinel) {
+	node* min() {
 		node *x = this;
-		while (x->_left != sentinel)
+		while (x->_left != _sentinel)
 			x = x->_left;
 		return x;
 	}
 
-	node* max(node *sentinel) {
+	node* max() {
 		node *x = this;
-		while (x->_right != sentinel)
+		while (x->_right != _sentinel)
 			x = x->_right;
 		return x;
 	}
 
-	node* successor(node *sentinel) {
+	node* successor() {
 		node *x = this;
-		if (x->_right != sentinel)
-			return x->_right->min(sentinel);
+		if (x->_right != _sentinel)
+			return x->_right->min();
 		
 		node* y = x->_p;
-		while (y != sentinel && x == y->_right) {
+		while (y != _sentinel && x == y->_right) {
 			x = y;
 			y = y->_p;
 		}
 		return y;
 	}
 
-	node* predecessor(node *sentinel) {
+	node* predecessor() {
 		node *x = this;
-		if (x->_left != sentinel)
-			return x->_left->max(sentinel);
+		if (x->_left != _sentinel)
+			return x->_left->max();
 		
 		node* y = x->_p;
-		while (y != sentinel && x == y->_left) {
+		while (y != _sentinel && x == y->_left) {
 			x = y;
 			y = y->_p;
 		}
