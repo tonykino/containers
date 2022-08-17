@@ -53,12 +53,12 @@ struct RBIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
 		return _node->_key != rhs._node->_key;
 	}
 
-	node& operator*() {
-		return *_node; // return _node->_key;
+	value_type & operator*() {
+		return _node->_key;
 	}
 
 private:
-	RBNode<T> * _node;
+	RBNode<value_type> * _node;
 };
 
 }
