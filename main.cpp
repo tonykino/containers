@@ -20,9 +20,15 @@ int main(void)
 	foo._tree.insert(node5);
 	foo._tree.print();
 
-	ft::map<const int, std::string>::iterator it = foo.begin();
+	// ft::map<const int, std::string>::iterator it = foo.begin();
+	// ft::map<const int, std::string>::reverse_iterator it2 = foo.rbegin();
 
-	std::cout << "it:" << *it << std::endl;
+	// Test iterator and reverse iterator
+	std::cout << "begin : " << (*foo.begin()).second << std::endl;
+	std::cout << "end   : " << (*foo.end()).second << std::endl;
+	std::cout << "rend  : " << (*foo.rend()).second << std::endl;
+	std::cout << "rbegin: " << (*foo.rbegin()).second << std::endl;
+
 	
 	// std::pair<int, int> test = std::make_pair(3, 5);
 	// std::cout << test.first << std::endl;

@@ -26,11 +26,11 @@ public:
 	typedef typename allocator_type::const_reference const_reference;
 	typedef typename allocator_type::pointer pointer;
 	typedef typename allocator_type::const_pointer const_pointer;
-	typedef RBIterator<value_type> iterator; // todo : replace pointer // typedef rbt_iterator<value_type> iterator
+	typedef RBIterator<value_type> iterator;
 	typedef const_pointer const_iterator; // todo : replace constpointer
 	typedef ft::reverse_iterator<iterator> reverse_iterator;
 	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-	typedef std::ptrdiff_t difference_type; // todo : replace by typename ft::iterator_traits<iterator>::difference_type
+	typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 	typedef std::size_t size_type;
 
 	// class value_compare: public binary_function<value_type,value_type,bool> { // todo : what is this ?!
@@ -61,7 +61,7 @@ public:
 
 	// map<Key,T,Compare,Allocator>& operator=(const map<Key,T,Compare,Allocator>& x);
 
-	// iterators:
+	// // iterators:
 	iterator begin() {
 		return iterator(_tree.min());
 	}
