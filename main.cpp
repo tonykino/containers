@@ -13,12 +13,16 @@ int main(void)
 	RBNode<std::pair<const int, std::string> > *node5 = new RBNode<std::pair<const int, std::string> >(std::make_pair(5, std::string("cinq")), foo._tree.get_sentinel());
 	// RBTree<std::pair<int, int> > foo;
 	// std::pair<int, int> test = std::make_pair(3, 5);
+
+	std::cout << "container is empty? " << foo.empty() << std::endl;
+	std::cout << "size: " << foo.size() << std::endl;
 	foo._tree.insert(node1);
-	foo._tree.print();
 	foo._tree.insert(node3);
-	foo._tree.print();
 	foo._tree.insert(node5);
 	foo._tree.print();
+
+	std::cout << "container is empty? " << foo.empty() << std::endl;
+	std::cout << "size: " << foo.size() << std::endl;
 
 	// ft::map<const int, std::string>::iterator it = foo.begin();
 	// ft::map<const int, std::string>::reverse_iterator it2 = foo.rbegin();

@@ -87,9 +87,10 @@ public:
 	// const_reverse_iterator rend() const;
 
 	// // capacity:
-	// bool empty() const;
-	// size_type size() const;
-	// size_type max_size() const;
+
+	size_type size()	 const { return _tree.size(); }
+	size_type max_size() const { return _alloc.max_size(); }
+	bool 	  empty()	 const { return _tree.get_root() == _tree.get_sentinel(); }
 
 	// // 23.3.1.2 element access:
 	// T& operator[](const key_type& x);

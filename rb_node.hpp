@@ -13,24 +13,17 @@ class RBNode {
 public:
 	typedef RBNode<T> node;
 
-	RBNode(const T& key = T(), node* sentinel = NULL): _key(key), _left(sentinel), _right(sentinel), _p(sentinel), _c(black), _sentinel(sentinel) {};
-
-	friend std::ostream & operator<<(std::ostream & o, node const & rhs) {
-		// TODO - faire en sorte qu'on puisse utiliser cet overload avec une pair as node
-		o << "&:" << &rhs << " key:" << rhs._key.first << ":" << rhs._key.second << " left:" << rhs._left << " right:" << rhs._right << " p:" << rhs._p << " color:" << rhs._c;
-		return o;
-	}
-
-    friend class RBTree<T>;
-
-// private:
-
 	T _key;
 	node *_left;
 	node *_right;
 	node *_p;
 	Color _c;
 	node *_sentinel;
+	
+	RBNode(const T& key = T(), node* sentinel = NULL)
+	: _key(key), _left(sentinel), _right(sentinel), _p(sentinel),
+	_c(black), _sentinel(sentinel) {
+	};
 
 	node* search(T k) {
 		node* x = this;
@@ -89,6 +82,12 @@ public:
 		inorder_walk(x->_left, sentinel);
 		std::cout << *x << std::endl;
 		inorder_walk(x->_right, sentinel);
+	}
+
+	friend std::ostream & operator<<(std::ostream & o, node const & rhs) {
+		// TODO - faire en sorte qu'on puisse utiliser cet overload avec une pair as node
+		o << "&:" << &rhs << " key:" << rhs._key.first << ":" << rhs._key.second << " left:" << rhs._left << " right:" << rhs._right << " p:" << rhs._p << " color:" << rhs._c;
+		return o;
 	}
 };
 

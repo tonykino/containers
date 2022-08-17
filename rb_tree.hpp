@@ -119,10 +119,20 @@ public:
 		}
 	}
 
-	node* get_sentinel(void) {
+	node* get_sentinel(void) const {
 		return _nil;
 	}
 
+	node* get_root(void) const {
+		return _root;
+	}
+
+	int size(RBNode<T> *node = NULL) const {
+		if (node == NULL) node = _root;
+		if (node == _nil) return 0;
+
+		return 1 + this->size(node->_left) + this->size(node->_right);
+	}
 
 private:
 	node* _root;
