@@ -12,7 +12,8 @@
 
 namespace ft {
 
-template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
+template <class Key, class T, class Compare = std::less<Key>, 
+		  class Allocator = std::allocator<std::pair<const Key, T> > >
 class map {
 
 public:
@@ -33,7 +34,7 @@ public:
 	typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 	typedef std::size_t size_type;
 
-	class value_compare: public binary_function<value_type, value_type, bool> {
+	class value_compare: public std::binary_function<value_type, value_type, bool> {
 	    friend class map;
 		
 	    protected:
@@ -47,9 +48,8 @@ public:
 	};
 
 	// 23.3.1.1 construct/copy/destroy:
-	explicit map(const Compare& comp = Compare(), const Allocator& = Allocator())
-	{
-		(void) comp;
+	explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
+	: _comp(comp), _alloc(alloc) {
 	}
 	
 	// template <class InputIterator>
@@ -96,9 +96,9 @@ public:
 	// T& operator[](const key_type& x);
 
 	// // modifiers:
-	std::pair<iterator, bool> insert(const value_type& x) {
+	// std::pair<iterator, bool> insert(const value_type& x) {
 
-	}
+	// }
 	// iterator insert(iterator position, const value_type& x);
 
 	// template <class InputIterator>
@@ -111,11 +111,18 @@ public:
 	// void clear();
 	
 	// // observers:
-	// key_compare key_comp() const;
-	// value_compare value_comp() const;
+	key_compare		key_comp() const {
+		return key_compare();
+	}
+
+	value_compare		value_comp() const {
+		return this->_comp;
+	}
 
 	// // 23.3.1.3 map operations:
-	iterator find(const key_type& x);
+	iterator find(const key_type& x) {
+		return iterator(_tree.search(x));
+	}
 	// const_iterator find(const key_type& x) const;
 	// size_type count(const key_type& x) const;
 	// iterator lower_bound(const key_type& x);
@@ -129,7 +136,9 @@ public:
 	// allocator_type get_allocator() const;
 
 // private:
-	RBTree<value_type> _tree;
+	value_compare		_comp;
+	allocator_type		_alloc;
+	RBTree<value_type>	_tree;
 };
 
 // template <class Key, class T, class Compare, class Allocator>
