@@ -150,7 +150,14 @@ public:
 
 	// const_iterator upper_bound(const key_type& x) const;
 	
-	// pair<iterator,iterator> equal_range(const key_type& x);
+	std::pair<iterator,iterator> equal_range(const key_type& k) {
+		std::pair<iterator, iterator>	pair;
+
+		pair.first = this->lower_bound(k);
+		pair.second = this->upper_bound(k);
+		return pair;
+	}
+
 	// pair<const_iterator,const_iterator> equal_range(const key_type& x) const;
 
 	// allocator_type get_allocator() const;
@@ -169,9 +176,8 @@ public:
 
 		while (node != _tree.get_sentinel()) {
 			comparison = _comp(node->_key, val);
-			if (!comparison && !_comp(val, node->_key)) {
+			if (!comparison && !_comp(val, node->_key))
 				return node;
-			}
 			else if (comparison)
 				node = node->_right;
 			else
