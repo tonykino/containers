@@ -120,9 +120,24 @@ public:
 	}
 
 	// // 23.3.1.3 map operations:
-	iterator find(const key_type& x) {
-		return iterator(_tree.search(x));
+	iterator find(const key_type& k) {
+		value_type x(k, mapped_type());
+		node * node = _tree.get_root();
+		bool comparison;
+
+		while (node != _tree.get_sentinel()) {
+			comparison = _comp(node->_key, x);
+			if (!comparison && !_comp(x, node->_key)) {
+				return iterator(node);
+			}
+			else if (comparison)
+				node = node->_right;
+			else
+				node = node->_left;
+		}
+		return iterator(node);
 	}
+	
 	// const_iterator find(const key_type& x) const;
 	// size_type count(const key_type& x) const;
 	// iterator lower_bound(const key_type& x);
@@ -136,6 +151,8 @@ public:
 	// allocator_type get_allocator() const;
 
 // private:
+	typedef RBNode<value_type> node;
+
 	value_compare		_comp;
 	allocator_type		_alloc;
 	RBTree<value_type>	_tree;

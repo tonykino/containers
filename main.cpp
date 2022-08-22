@@ -33,7 +33,11 @@ int main(void)
 	std::cout << "rend  : " << (*foo.rend()).second << std::endl;
 	std::cout << "rbegin: " << (*foo.rbegin()).second << std::endl;
 
-	
+	std::cout << "find(3) : " << (*foo.find(3)).first << std::endl;
+	std::cout << "find(5) : " << (*foo.find(5)).first << std::endl;
+	std::cout << "find(1) : " << (*foo.find(1)).first << std::endl;
+	std::cout << "find(8) : " << (*foo.find(8)).first << std::endl;
+
 	// std::pair<int, int> test = std::make_pair(3, 5);
 	// std::cout << test.first << std::endl;
 
