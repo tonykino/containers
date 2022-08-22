@@ -130,9 +130,24 @@ public:
 		return (_findNode(k) != _tree.get_sentinel()) ? 1 : 0;
 	}
 
-	// iterator lower_bound(const key_type& x);
+	iterator lower_bound(const key_type& k) {
+		value_type val(k, mapped_type());
+		node * node = _tree.min();
+		while (node != _tree.get_sentinel() && _comp(node->_key, val))
+			node = node->successor();
+		return iterator(node);
+	}
+
 	// const_iterator lower_bound(const key_type& x) const;
-	// iterator upper_bound(const key_type& x);
+
+	iterator upper_bound(const key_type& k) {
+		value_type val(k, mapped_type());
+		node * node = _tree.min();
+		while (node != _tree.get_sentinel() && !_comp(val, node->_key))
+			node = node->successor();
+		return iterator(node);
+	}
+
 	// const_iterator upper_bound(const key_type& x) const;
 	
 	// pair<iterator,iterator> equal_range(const key_type& x);
@@ -148,13 +163,13 @@ public:
 	RBTree<value_type>	_tree;
 
 	node *_findNode(const key_type& k) const {
-		value_type x(k, mapped_type());
+		value_type val(k, mapped_type());
 		node * node = _tree.get_root();
 		bool comparison;
 
 		while (node != _tree.get_sentinel()) {
-			comparison = _comp(node->_key, x);
-			if (!comparison && !_comp(x, node->_key)) {
+			comparison = _comp(node->_key, val);
+			if (!comparison && !_comp(val, node->_key)) {
 				return node;
 			}
 			else if (comparison)

@@ -40,6 +40,14 @@ int main(void)
 
 	std::cout << "count(3) : " << foo.count(3) << std::endl;
 	std::cout << "count(8) : " << foo.count(8) << std::endl;
+	
+	std::cout << "lower_bound(3) : " << (*foo.lower_bound(3)).first << std::endl;
+	std::cout << "lower_bound(4) : " << (*foo.lower_bound(4)).first << std::endl;
+	std::cout << "lower_bound(5) : " << (*foo.lower_bound(5)).first << std::endl;
+
+	std::cout << "upper_bound(3) : " << (*foo.upper_bound(3)).first << std::endl;
+	std::cout << "upper_bound(4) : " << (*foo.upper_bound(4)).first << std::endl;
+	std::cout << "upper_bound(5) : " << (*foo.upper_bound(5)).first << std::endl;
 
 	// std::pair<int, int> test = std::make_pair(3, 5);
 	// std::cout << test.first << std::endl;
