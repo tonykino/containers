@@ -38,6 +38,9 @@ int main(void)
 	std::cout << "find(1) : " << (*foo.find(1)).first << std::endl;
 	std::cout << "find(8) : " << (*foo.find(8)).first << std::endl;
 
+	std::cout << "count(3) : " << foo.count(3) << std::endl;
+	std::cout << "count(8) : " << foo.count(8) << std::endl;
+
 	// std::pair<int, int> test = std::make_pair(3, 5);
 	// std::cout << test.first << std::endl;
 

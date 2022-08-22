@@ -121,25 +121,15 @@ public:
 
 	// // 23.3.1.3 map operations:
 	iterator find(const key_type& k) {
-		value_type x(k, mapped_type());
-		node * node = _tree.get_root();
-		bool comparison;
-
-		while (node != _tree.get_sentinel()) {
-			comparison = _comp(node->_key, x);
-			if (!comparison && !_comp(x, node->_key)) {
-				return iterator(node);
-			}
-			else if (comparison)
-				node = node->_right;
-			else
-				node = node->_left;
-		}
-		return iterator(node);
+		return iterator(_findNode(k));
 	}
-	
+
 	// const_iterator find(const key_type& x) const;
-	// size_type count(const key_type& x) const;
+	
+	size_type count(const key_type& k) const {
+		return (_findNode(k) != _tree.get_sentinel()) ? 1 : 0;
+	}
+
 	// iterator lower_bound(const key_type& x);
 	// const_iterator lower_bound(const key_type& x) const;
 	// iterator upper_bound(const key_type& x);
@@ -156,6 +146,24 @@ public:
 	value_compare		_comp;
 	allocator_type		_alloc;
 	RBTree<value_type>	_tree;
+
+	node *_findNode(const key_type& k) const {
+		value_type x(k, mapped_type());
+		node * node = _tree.get_root();
+		bool comparison;
+
+		while (node != _tree.get_sentinel()) {
+			comparison = _comp(node->_key, x);
+			if (!comparison && !_comp(x, node->_key)) {
+				return node;
+			}
+			else if (comparison)
+				node = node->_right;
+			else
+				node = node->_left;
+		}
+		return node;
+	}
 };
 
 // template <class Key, class T, class Compare, class Allocator>
