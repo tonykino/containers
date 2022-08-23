@@ -9,18 +9,19 @@
 #include "rb_node.hpp"
 #include "reverse_iterator.hpp"
 #include "rb_iterator.hpp"
+#include "pair.hpp"
 
 namespace ft {
 
 template <class Key, class T, class Compare = std::less<Key>,
-		  class Allocator = std::allocator<std::pair<const Key, T> > >
+		  class Allocator = std::allocator<ft::pair<const Key, T> > >
 class map {
 
 public:
 	// types:   
 	typedef Key key_type;
 	typedef T mapped_type;
-	typedef std::pair<const key_type, mapped_type> value_type;
+	typedef ft::pair<const key_type, mapped_type> value_type;
 	typedef Compare key_compare;
 	typedef Allocator allocator_type;
 	typedef typename allocator_type::reference reference;
@@ -113,14 +114,14 @@ public:
 	}
 
 	// // modifiers:
-	std::pair<iterator, bool> insert(const value_type& val) {
+	ft::pair<iterator, bool> insert(const value_type& val) {
 		node *n = _findNode(val);
 		if (n != _tree.get_sentinel())
-			return std::make_pair(iterator(n), false);
+			return ft::make_pair(iterator(n), false);
 		
 		n = new RBNode<value_type>(val, _tree.get_sentinel());
 		_tree.insert(n);
-		return std::make_pair(iterator(n), true);
+		return ft::make_pair(iterator(n), true);
 	}
 
 	iterator insert(iterator position, const value_type& val) {
@@ -215,8 +216,8 @@ public:
 
 	// const_iterator upper_bound(const key_type& x) const;
 	
-	std::pair<iterator,iterator> equal_range(const key_type& k) {
-		std::pair<iterator, iterator>	pair;
+	ft::pair<iterator,iterator> equal_range(const key_type& k) {
+		ft::pair<iterator, iterator>	pair;
 
 		pair.first = this->lower_bound(k);
 		pair.second = this->upper_bound(k);

@@ -11,17 +11,17 @@ int main(void)
 
 	std::cout << "container is empty? " << foo.empty() << std::endl;
 	std::cout << "size: " << foo.size() << std::endl;
-	foo.insert(foo._tree.get_root(), std::make_pair(1, std::string("un")));
-	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("trois")));
-	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("sept")));
-	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("trois")));
-	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("trois")));
-	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("treize")));
-	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("cinq")));
-	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("cinq")));
-	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("quatre")));
-	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("douze")));
-	foo.insert(foo._tree.get_root(), std::make_pair(6, std::string("douze")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(1, std::string("un")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(3, std::string("trois")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(3, std::string("sept")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(3, std::string("trois")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(3, std::string("trois")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(3, std::string("treize")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(5, std::string("cinq")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(5, std::string("cinq")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(5, std::string("quatre")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(5, std::string("douze")));
+	foo.insert(foo._tree.get_root(), ft::make_pair(6, std::string("douze")));
 	foo[4];
 	foo._tree.print();
 
