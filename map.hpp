@@ -150,7 +150,11 @@ public:
 	}
 
 	// void swap(map<Key,T,Compare,Allocator>&);
-	// void clear();
+	void clear() {
+		while (_tree.get_root() != _tree.get_sentinel()) {
+			erase(_tree.get_root()->_key.first);
+		}
+	}
 	
 	// // observers:
 	key_compare		key_comp() const { return key_compare(); }

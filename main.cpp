@@ -55,7 +55,8 @@ int main(void)
 	foo.erase(1);
 	foo.erase(foo.find(3));
 	foo._tree.print();
-	foo.erase(foo.begin(), foo.end());
+	// foo.erase(foo.begin(), foo.end());
+	foo.clear();
 	foo._tree.print();
 
 	return 0;
