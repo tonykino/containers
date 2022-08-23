@@ -68,7 +68,10 @@ public:
 		clear();
 	}
 
-	// map<Key,T,Compare,Allocator>& operator=(const map<Key,T,Compare,Allocator>& x);
+	map<Key,T,Compare,Allocator>& operator=(const map<Key, T, Compare, Allocator>& rhs) {
+		clear();
+		insert(rhs.begin(), rhs.end());
+	}
 
 	// // iterators:
 	iterator begin() {
@@ -163,7 +166,13 @@ public:
 		}
 	}
 
-	// void swap(map<Key,T,Compare,Allocator>&);
+	void swap(map<Key, T, Compare, Allocator>& rhs) {
+		map<key_type, mapped_type> temp(*this);
+
+		*this = rhs;
+		rhs = temp;
+	}
+
 	void clear() {
 		while (_tree.get_root() != _tree.get_sentinel()) {
 			erase(_tree.get_root()->_key.first);
