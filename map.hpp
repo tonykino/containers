@@ -52,12 +52,21 @@ public:
 	: _comp(comp), _alloc(alloc) {
 	}
 	
-	// template <class InputIterator>
-	// map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& = Allocator());
+	template <class InputIterator>
+	map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator(),
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
+	: _comp(comp), _alloc(alloc) {
+		insert(first, last);
+	}
 	
-	// map(const map<Key,T,Compare,Allocator>& x);
+	map(const map<Key, T, Compare, Allocator>& src)
+	: _comp(src._comp), _alloc(src._alloc) {
+		*this = src;
+	}
 	
-	// ~map();
+	~map() {
+		clear();
+	}
 
 	// map<Key,T,Compare,Allocator>& operator=(const map<Key,T,Compare,Allocator>& x);
 
