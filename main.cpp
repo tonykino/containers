@@ -22,6 +22,7 @@ int main(void)
 	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("quatre")));
 	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("douze")));
 	foo.insert(foo._tree.get_root(), std::make_pair(6, std::string("douze")));
+	foo[13];
 	foo._tree.print();
 
 	std::cout << "container is empty? " << foo.empty() << std::endl;

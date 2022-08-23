@@ -93,7 +93,12 @@ public:
 	bool 	  empty()	 const { return _tree.get_root() == _tree.get_sentinel(); }
 
 	// // 23.3.1.2 element access:
-	// T& operator[](const key_type& x);
+	mapped_type& operator[](const key_type& k) {
+		node *n = _findNode(k);
+		if (n == _tree.get_sentinel())
+			insert(value_type(k, mapped_type()));
+		return _findNode(k)->_key.second;
+	}
 
 	// // modifiers:
 	std::pair<iterator, bool> insert(const value_type& val) {
@@ -256,4 +261,5 @@ public:
 // }
 
 }
+
 #endif
