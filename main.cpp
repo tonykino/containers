@@ -8,17 +8,25 @@
 int main(void)
 {
 	ft::map<const int, std::string> foo;
-	RBNode<std::pair<const int, std::string> > *node1 = new RBNode<std::pair<const int, std::string> >(std::make_pair(1, std::string("un")), foo._tree.get_sentinel());
-	RBNode<std::pair<const int, std::string> > *node3 = new RBNode<std::pair<const int, std::string> >(std::make_pair(3, std::string("trois")), foo._tree.get_sentinel());
-	RBNode<std::pair<const int, std::string> > *node5 = new RBNode<std::pair<const int, std::string> >(std::make_pair(5, std::string("cinq")), foo._tree.get_sentinel());
+	// RBNode<std::pair<const int, std::string> > *node1 = new RBNode<std::pair<const int, std::string> >(std::make_pair(1, std::string("un")), foo._tree.get_sentinel());
+	// RBNode<std::pair<const int, std::string> > *node3 = new RBNode<std::pair<const int, std::string> >(std::make_pair(3, std::string("trois")), foo._tree.get_sentinel());
+	// RBNode<std::pair<const int, std::string> > *node5 = new RBNode<std::pair<const int, std::string> >(std::make_pair(5, std::string("cinq")), foo._tree.get_sentinel());
 	// RBTree<std::pair<int, int> > foo;
 	// std::pair<int, int> test = std::make_pair(3, 5);
 
 	std::cout << "container is empty? " << foo.empty() << std::endl;
 	std::cout << "size: " << foo.size() << std::endl;
-	foo._tree.insert(node1);
-	foo._tree.insert(node3);
-	foo._tree.insert(node5);
+	foo.insert(foo._tree.get_root(), std::make_pair(1, std::string("un")));
+	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("trois")));
+	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("sept")));
+	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("trois")));
+	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("trois")));
+	foo.insert(foo._tree.get_root(), std::make_pair(3, std::string("treize")));
+	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("cinq")));
+	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("cinq")));
+	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("quatre")));
+	foo.insert(foo._tree.get_root(), std::make_pair(5, std::string("douze")));
+	foo.insert(foo._tree.get_root(), std::make_pair(6, std::string("douze")));
 	foo._tree.print();
 
 	std::cout << "container is empty? " << foo.empty() << std::endl;

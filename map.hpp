@@ -12,7 +12,7 @@
 
 namespace ft {
 
-template <class Key, class T, class Compare = std::less<Key>, 
+template <class Key, class T, class Compare = std::less<Key>,
 		  class Allocator = std::allocator<std::pair<const Key, T> > >
 class map {
 
@@ -96,14 +96,30 @@ public:
 	// T& operator[](const key_type& x);
 
 	// // modifiers:
-	// std::pair<iterator, bool> insert(const value_type& x) {
+	std::pair<iterator, bool> insert(const value_type& val) {
+		node *n = _findNode(val);
+		if (n != _tree.get_sentinel())
+			return std::make_pair(iterator(n), false);
+		
+		n = new RBNode<value_type>(val, _tree.get_sentinel());
+		_tree.insert(n);
+		return std::make_pair(iterator(n), true);
+	}
 
-	// }
-	// iterator insert(iterator position, const value_type& x);
+	iterator insert(iterator position, const value_type& val) {
+		(void) position;
+		return insert(val).first;
+	}
 
-	// template <class InputIterator>
-	// void insert(InputIterator first, InputIterator last);
-	
+	template <class InputIterator>
+	void insert(InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
+		while (first != last) {
+			insert(first);
+			first++;
+		}
+	}
+
 	// void erase(iterator position);
 	// size_type erase(const key_type& x);
 	// void erase(iterator first, iterator last);
@@ -171,6 +187,10 @@ public:
 
 	node *_findNode(const key_type& k) const {
 		value_type val(k, mapped_type());
+		return _findNode(val);
+	}
+
+	node *_findNode(const value_type& val) const {
 		node * node = _tree.get_root();
 		bool comparison;
 
