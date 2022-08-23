@@ -15,7 +15,7 @@ struct RBIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
 	typedef bidirectional_iterator_tag													iterator_category;
 	typedef RBNode<T>																	node;
 	
-	RBIterator(node * x) : _node(x) {}
+	RBIterator(node * x = NULL) : _node(x) {}
 	RBIterator(const RBIterator& mit) : _node(mit._node) {}
 
 	RBIterator& operator=(const RBIterator& rhs) {
@@ -53,8 +53,12 @@ struct RBIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
 		return _node->_key != rhs._node->_key;
 	}
 
-	value_type & operator*() {
+	reference operator*() const {
 		return _node->_key;
+	}
+
+	pointer operator->() const {
+		return &(_node->_key);
 	}
 
 private:
