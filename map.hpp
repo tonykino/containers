@@ -120,20 +120,42 @@ public:
 		}
 	}
 
-	// void erase(iterator position);
-	// size_type erase(const key_type& x);
-	// void erase(iterator first, iterator last);
+	void erase(iterator position) {
+		erase((*position).first);	
+	}
+
+	size_type erase(const key_type& k) {
+		node *n = _findNode(k);
+		if (n == _tree.get_sentinel())
+			return 0;
+		
+		_tree.remove(n);
+		delete n;
+		return 1;
+	}
+
+	void erase(iterator first, iterator last) {
+		size_type size = 0;
+		iterator it = first;
+
+		while (it++ != last)
+			size++;
+		it = first;
+		while (size) {
+			first++;
+			erase(it);
+			it = first;
+			size--;
+		}
+	}
+
 	// void swap(map<Key,T,Compare,Allocator>&);
 	// void clear();
 	
 	// // observers:
-	key_compare		key_comp() const {
-		return key_compare();
-	}
-
-	value_compare		value_comp() const {
-		return this->_comp;
-	}
+	key_compare		key_comp() const { return key_compare(); }
+	value_compare	value_comp() const { return _comp; }
+	allocator_type	get_allocator() const { return _alloc; }
 
 	// // 23.3.1.3 map operations:
 	iterator find(const key_type& k) {
@@ -176,7 +198,6 @@ public:
 
 	// pair<const_iterator,const_iterator> equal_range(const key_type& x) const;
 
-	// allocator_type get_allocator() const;
 
 // private:
 	typedef RBNode<value_type> node;
