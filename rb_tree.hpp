@@ -73,36 +73,32 @@ public:
 			_remove_fixup(x);
 	}
 
-	node* search(T k) {
+	node* search(T k) const {
 		return _root->search(k);
 	}
-	//
-	// const node* search(T k) const {
-	// 	return _root->search(k, _nil);
-	// }
 
-	node* min() {
+	node* min() const {
 		return _root->min();
 	}
 
-	node* max() {
+	node* max() const {
 		return _root->max();
 	}
 
-	node* successor(node *n) {
+	node* successor(node *n) const {
 		return n->successor();
 	}
 
-	node* predecessor(node *n) {
+	node* predecessor(node *n) const {
 		return n->predecessor();
 	}
 
-	void print(void) {
+	void print(void) const {
 		print("", _root, false);
 		std::cout << std::endl;
 	}
 
-	void print(const std::string &prefix, const node *n, bool is_left)
+	void print(const std::string &prefix, const node *n, bool is_left) const
 	{
 		if (n != _root)
 			std::cout << prefix << (is_left ? "├──" : "└──" );
@@ -125,6 +121,10 @@ public:
 
 	node* get_root(void) const {
 		return _root;
+	}
+
+	void set_root(node* n) {
+		_root = n;
 	}
 
 	int size(RBNode<T> *node = NULL) const {

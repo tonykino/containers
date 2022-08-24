@@ -22,8 +22,8 @@ struct integral_constant {
 	operator T() { return v; }
 };
 
-typedef integral_constant<bool, true>     true_type;
-typedef integral_constant<bool, false>    false_type;
+typedef integral_constant<bool, true>	true_type;
+typedef integral_constant<bool, false>	false_type;
 
 // is_integral
 template<typename T>

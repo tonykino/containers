@@ -41,6 +41,9 @@ public:
 
 	node* min() {
 		node *x = this;
+		if (x == _sentinel)
+			return _sentinel;
+
 		while (x->_left != _sentinel)
 			x = x->_left;
 		return x;
@@ -48,6 +51,9 @@ public:
 
 	node* max() {
 		node *x = this;
+		if (x == _sentinel)
+			return _sentinel;
+			
 		while (x->_right != _sentinel)
 			x = x->_right;
 		return x;

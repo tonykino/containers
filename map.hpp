@@ -69,18 +69,19 @@ public:
 		clear();
 	}
 
-	map<Key,T,Compare,Allocator>& operator=(const map<Key, T, Compare, Allocator>& rhs) {
+	map<Key, T, Compare, Allocator>& operator=(const map<Key, T, Compare, Allocator>& rhs) {
 		clear();
 		insert(rhs.begin(), rhs.end());
+		return *this;
 	}
 
 	// // iterators:
-	iterator begin() { return iterator(_tree.min()); }
-	const_iterator begin() const { return const_iterator(_tree.min()); }
+	iterator begin() { return iterator((size() == 0) ? _tree.get_sentinel() : _tree.min()); }
+	const_iterator begin() const { return const_iterator((size() == 0) ? _tree.get_sentinel() : _tree.min()); }
 	iterator end() { return iterator(_tree.get_sentinel()); }
 	const_iterator end() const { return const_iterator(_tree.get_sentinel()); }
-	reverse_iterator rbegin() { return reverse_iterator(_tree.max()); }
-	const_reverse_iterator rbegin() const { return const_reverse_iterator(_tree.max()); }
+	reverse_iterator rbegin() { return reverse_iterator((size() == 0) ? _tree.get_sentinel() : _tree.max()); }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator((size() == 0) ? _tree.get_sentinel() : _tree.max()); }
 	reverse_iterator rend() { return reverse_iterator(_tree.get_sentinel()); }
 	const_reverse_iterator rend() const { return const_reverse_iterator(_tree.get_sentinel()); }
 
@@ -134,6 +135,10 @@ public:
 		
 		_tree.remove(n);
 		_tree.get_sentinel()->_root = _tree.get_root();
+		if (size() == 0) {
+			// std::cout << "Size is now 0, set root to sentinel\n"; 
+			_tree.set_root(_tree.get_sentinel());
+		}
 		delete n;
 		return 1;
 	}
@@ -252,14 +257,15 @@ template <class Key, class T, class Compare, class Allocator>
 bool operator==(const map<Key,T,Compare,Allocator>& x, const map<Key,T,Compare,Allocator>& y) {
 	if (x.size() != y.size()) return false;
 
-	typename ft::map<Key,T,Compare,Allocator>::iterator itx = x.begin();
-	typename ft::map<Key,T,Compare,Allocator>::iterator ity = y.begin();
+	typename ft::map<Key,T,Compare,Allocator>::const_iterator itx = x.begin();
+	typename ft::map<Key,T,Compare,Allocator>::const_iterator ity = y.begin();
 
 	while (itx != x.end()) {
 		if (*itx != *ity) return false;
 		itx++;
 		ity++;
 	}
+	return true;
 }
 
 template <class Key, class T, class Compare, class Allocator>
