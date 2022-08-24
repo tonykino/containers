@@ -29,7 +29,7 @@ public:
 	typedef typename allocator_type::pointer pointer;
 	typedef typename allocator_type::const_pointer const_pointer;
 	typedef RBIterator<value_type> iterator;
-	typedef const_pointer const_iterator; // todo : replace constpointer
+	typedef RBConstIterator<value_type> const_iterator; // todo : replace constpointer
 	typedef ft::reverse_iterator<iterator> reverse_iterator;
 	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 	typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
@@ -75,29 +75,14 @@ public:
 	}
 
 	// // iterators:
-	iterator begin() {
-		return iterator(_tree.min());
-	}
-
-	// const_iterator begin() const;
-
-	iterator end() {
-		return iterator(_tree.get_sentinel());
-	}
-
-	// const_iterator end() const;
-	
-	reverse_iterator rbegin() {
-		return reverse_iterator(_tree.max());
-	}
-	
-	// const_reverse_iterator rbegin() const;
-	
-	reverse_iterator rend() {
-		return reverse_iterator(_tree.get_sentinel());
-	}
-	
-	// const_reverse_iterator rend() const;
+	iterator begin() { return iterator(_tree.min()); }
+	const_iterator begin() const { return const_iterator(_tree.min()); }
+	iterator end() { return iterator(_tree.get_sentinel()); }
+	const_iterator end() const { return const_iterator(_tree.get_sentinel()); }
+	reverse_iterator rbegin() { return reverse_iterator(_tree.max()); }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator(_tree.max()); }
+	reverse_iterator rend() { return reverse_iterator(_tree.get_sentinel()); }
+	const_reverse_iterator rend() const { return const_reverse_iterator(_tree.get_sentinel()); }
 
 	// // capacity:
 
@@ -186,11 +171,8 @@ public:
 	allocator_type	get_allocator() const { return _alloc; }
 
 	// // 23.3.1.3 map operations:
-	iterator find(const key_type& k) {
-		return iterator(_findNode(k));
-	}
-
-	// const_iterator find(const key_type& x) const;
+	iterator find(const key_type& k) { return iterator(_findNode(k)); }
+	const_iterator find(const key_type& k) const { return const_iterator(_findNode(k)); }
 	
 	size_type count(const key_type& k) const {
 		return (_findNode(k) != _tree.get_sentinel()) ? 1 : 0;
@@ -204,7 +186,9 @@ public:
 		return iterator(node);
 	}
 
-	// const_iterator lower_bound(const key_type& x) const;
+	const_iterator lower_bound(const key_type& k) const {
+		return const_iterator(lower_bound(k));
+	}
 
 	iterator upper_bound(const key_type& k) {
 		value_type val(k, mapped_type());
@@ -214,7 +198,9 @@ public:
 		return iterator(node);
 	}
 
-	// const_iterator upper_bound(const key_type& x) const;
+	const_iterator upper_bound(const key_type& k) const {
+		return const_iterator(upper_bound(k));
+	}
 	
 	ft::pair<iterator,iterator> equal_range(const key_type& k) {
 		ft::pair<iterator, iterator>	pair;
@@ -224,8 +210,13 @@ public:
 		return pair;
 	}
 
-	// pair<const_iterator,const_iterator> equal_range(const key_type& x) const;
+	pair<const_iterator,const_iterator> equal_range(const key_type& k) const {
+		ft::pair<const_iterator, const_iterator>	pair;
 
+		pair.first = this->lower_bound(k);
+		pair.second = this->upper_bound(k);
+		return pair;
+	}
 
 // private:
 	typedef RBNode<value_type> node;
