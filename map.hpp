@@ -104,7 +104,7 @@ public:
 		if (n != _tree.get_sentinel())
 			return ft::make_pair(iterator(n), false);
 		
-		n = new RBNode<value_type>(val, _tree.get_sentinel());
+		n = new RBNode<value_type>(val, _tree.get_sentinel(), _tree.get_root());
 		_tree.insert(n);
 		return ft::make_pair(iterator(n), true);
 	}

@@ -19,10 +19,13 @@ public:
 	node *_p;
 	Color _c;
 	node *_sentinel;
+	node *_root;
 	
-	RBNode(const T& key = T(), node* sentinel = NULL)
+	RBNode(const T& key = T(), node* sentinel = NULL, node *root = NULL)
 	: _key(key), _left(sentinel), _right(sentinel), _p(sentinel),
-	_c(black), _sentinel(sentinel) {
+	_c(black), _sentinel(sentinel), _root(root) {
+		if (sentinel)
+			_sentinel->_root = root;
 	};
 
 	node* search(T k) {
@@ -52,6 +55,9 @@ public:
 
 	node* successor() {
 		node *x = this;
+		if (_sentinel == NULL)
+			return _root->min();
+
 		if (x->_right != _sentinel)
 			return x->_right->min();
 		
@@ -65,6 +71,9 @@ public:
 
 	node* predecessor() {
 		node *x = this;
+		if (_sentinel == NULL)
+			return _root->max();
+
 		if (x->_left != _sentinel)
 			return x->_left->max();
 		
