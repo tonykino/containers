@@ -133,6 +133,7 @@ public:
 			return 0;
 		
 		_tree.remove(n);
+		_tree.get_sentinel()->_root = _tree.get_root();
 		delete n;
 		return 1;
 	}
