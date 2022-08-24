@@ -118,7 +118,7 @@ public:
 	void insert(InputIterator first, InputIterator last,
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
 		while (first != last) {
-			insert(first);
+			insert(*first);
 			first++;
 		}
 	}
