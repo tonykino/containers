@@ -71,6 +71,8 @@ public:
 
 	map<Key, T, Compare, Allocator>& operator=(const map<Key, T, Compare, Allocator>& rhs) {
 		clear();
+		_comp = rhs._comp;
+		_alloc = rhs._alloc;
 		insert(rhs.begin(), rhs.end());
 		return *this;
 	}
@@ -80,13 +82,12 @@ public:
 	const_iterator begin() const { return const_iterator((size() == 0) ? _tree.get_sentinel() : _tree.min()); }
 	iterator end() { return iterator(_tree.get_sentinel()); }
 	const_iterator end() const { return const_iterator(_tree.get_sentinel()); }
-	reverse_iterator rbegin() { return reverse_iterator((size() == 0) ? _tree.get_sentinel() : _tree.max()); }
-	const_reverse_iterator rbegin() const { return const_reverse_iterator((size() == 0) ? _tree.get_sentinel() : _tree.max()); }
-	reverse_iterator rend() { return reverse_iterator(_tree.get_sentinel()); }
-	const_reverse_iterator rend() const { return const_reverse_iterator(_tree.get_sentinel()); }
+	reverse_iterator rbegin() { return reverse_iterator(iterator((size() == 0) ? _tree.get_sentinel() : _tree.max())); }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator(const_iterator((size() == 0) ? _tree.get_sentinel() : _tree.max())); }
+	reverse_iterator rend() { return reverse_iterator(iterator(_tree.get_sentinel())); }
+	const_reverse_iterator rend() const { return const_reverse_iterator(const_iterator(_tree.get_sentinel())); }
 
 	// // capacity:
-
 	size_type size()	 const { return _tree.size(); }
 	size_type max_size() const { return _alloc.max_size(); }
 	bool 	  empty()	 const { return _tree.get_root() == _tree.get_sentinel(); }
@@ -158,11 +159,21 @@ public:
 		}
 	}
 
-	void swap(map<Key, T, Compare, Allocator>& rhs) {
-		map<key_type, mapped_type> temp(*this);
+	void swap(map<Key, T, Compare, Allocator>& rhs) { // TODO - refactor this shitty code
+		value_compare		tmp_comp = rhs._comp;
+		allocator_type		tmp_alloc = rhs._alloc;
+		node * tmp_root = rhs._tree._root;
+		node * tmp_nil = rhs._tree._nil;
 
-		*this = rhs;
-		rhs = temp;
+		rhs._comp = _comp;
+		rhs._alloc = _alloc;
+		rhs._tree._root = _tree._root;  // TODO - use setter
+		rhs._tree._nil = _tree._nil; // TODO - use setter
+
+		_comp = tmp_comp;
+		_alloc = tmp_alloc;
+		_tree._root = tmp_root; // TODO - use setter
+		_tree._nil = tmp_nil; // TODO - use setter
 	}
 
 	void clear() {
@@ -170,7 +181,7 @@ public:
 			erase(_tree.get_root()->_key.first);
 		}
 	}
-	
+
 	// // observers:
 	key_compare		key_comp() const { return key_compare(); }
 	value_compare	value_comp() const { return _comp; }
@@ -179,7 +190,7 @@ public:
 	// // 23.3.1.3 map operations:
 	iterator find(const key_type& k) { return iterator(_findNode(k)); }
 	const_iterator find(const key_type& k) const { return const_iterator(_findNode(k)); }
-	
+
 	size_type count(const key_type& k) const {
 		return (_findNode(k) != _tree.get_sentinel()) ? 1 : 0;
 	}
@@ -207,7 +218,7 @@ public:
 	const_iterator upper_bound(const key_type& k) const {
 		return const_iterator(upper_bound(k));
 	}
-	
+
 	ft::pair<iterator,iterator> equal_range(const key_type& k) {
 		ft::pair<iterator, iterator>	pair;
 

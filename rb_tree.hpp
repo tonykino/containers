@@ -134,7 +134,7 @@ public:
 		return 1 + this->size(node->_left) + this->size(node->_right);
 	}
 
-private:
+// private:
 	node* _root;
 	node* _nil;
 
