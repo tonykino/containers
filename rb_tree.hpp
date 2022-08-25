@@ -106,7 +106,7 @@ public:
 			std::cout << "NIL:B" << std::endl;
 		else
 			std::cout << n->_key.first << ":" << n->_key.second << "(" << (n->_c == black ? "B" : "R") << ")" << std::endl;
-			// std::cout << *n << std::endl;
+			// std::cout << n->_key << "(" << (n->_c == black ? "B" : "R") << ")" << std::endl;
 
 		if( n != _nil )
 		{
@@ -184,10 +184,13 @@ private:
 			x->_p->_left = y;
 		else
 			x->_p->_right = y;
-		y->_p = x->_p;
+		if (y != _nil)
+			y->_p = x->_p;
 	}
 
 	void _remove_fixup(node *x) {
+		if (x == _nil) return;
+
 		while (x != _root && x->_c == black) {
 			if (x == x->_p->_left) {
 				node *w = x->_p->_right;
