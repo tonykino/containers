@@ -21,11 +21,12 @@ public:
 	node *_sentinel;
 	node *_root;
 	
-	RBNode(const T& key = T(), node* sentinel = NULL, node *root = NULL)
+	RBNode(const T& key = T(), node* sentinel = NULL)
 	: _key(key), _left(sentinel), _right(sentinel), _p(sentinel),
-	_c(black), _sentinel(sentinel), _root(root) {
+	_c(black), _sentinel(sentinel) {
+		_root = get_root();
 		if (sentinel)
-			_sentinel->_root = root;
+			_sentinel->_root = _root;
 	};
 
 	node* search(T k) {
@@ -89,6 +90,13 @@ public:
 			y = y->_p;
 		}
 		return y;
+	}
+
+	node* get_root() {
+		node *x = this;
+		while (x->_p != _sentinel)
+			x = x->_p;
+		return x;
 	}
 
 	static void inorder_walk(node *x, node *sentinel) {

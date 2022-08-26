@@ -106,7 +106,7 @@ public:
 		if (n != _tree.get_sentinel())
 			return ft::make_pair(iterator(n), false);
 		
-		n = new RBNode<value_type>(val, _tree.get_sentinel(), _tree.get_root());
+		n = new RBNode<value_type>(val, _tree.get_sentinel());
 		_tree.insert(n);
 		return ft::make_pair(iterator(n), true);
 	}
@@ -135,7 +135,6 @@ public:
 			return 0;
 		
 		_tree.remove(n);
-		_tree.get_sentinel()->_root = _tree.get_root();
 		if (size() == 0) {
 			// std::cout << "Size is now 0, set root to sentinel\n"; 
 			_tree.set_root(_tree.get_sentinel());
