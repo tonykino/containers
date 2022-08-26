@@ -86,10 +86,10 @@ public:
 	iterator end()	 { return _end; }
 	const_iterator begin() const { return _start; }
 	const_iterator end()   const { return _end; }
-	reverse_iterator rbegin() { return reverse_iterator(_end); }
-	reverse_iterator rend()   { return reverse_iterator(_start); }
-	const_reverse_iterator rbegin() const { return const_reverse_iterator(_end); }
-	const_reverse_iterator rend()   const { return const_reverse_iterator(_start); }
+	reverse_iterator rbegin() { return reverse_iterator(empty() ? _start : (_end - 1)); }
+	reverse_iterator rend()   { return reverse_iterator(empty() ? _start : (_start - 1)); }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator(empty() ? _start : (_end - 1)); }
+	const_reverse_iterator rend()   const { return const_reverse_iterator(empty() ? _start : (_start - 1)); }
 
 	// 23.2.4.2 capacity:
 	size_type size()	 const { return _end - _start; }
@@ -103,7 +103,6 @@ public:
 		else if (n > size())
 			insert(end(), n - size(), v);
 	}
-
 
 	void reserve(size_type n) {
 		if (n > max_size()) throw std::length_error("vector::reserve");
