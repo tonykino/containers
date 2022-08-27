@@ -36,32 +36,32 @@ public:
 	typedef std::size_t size_type;
 
 	class value_compare: public std::binary_function<value_type, value_type, bool> {
-	    friend class map;
+		friend class map;
 		
-	    protected:
-	    Compare comp;
-	    value_compare(Compare c): comp(c) {}
+		protected:
+		Compare comp;
+		value_compare(Compare c): comp(c) {}
 
-	    public:
-	    bool operator()(const value_type& x, const value_type& y) const {
-	        return comp(x.first, y.first);
-	    }
+		public:
+		bool operator()(const value_type& x, const value_type& y) const {
+			return comp(x.first, y.first);
+		}
 	};
 
 	// 23.3.1.1 construct/copy/destroy:
 	explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
-	: _comp(comp), _alloc(alloc) {
+	: _comp(comp), _alloc(alloc), _size(0) {
 	}
 	
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator(),
 		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
-	: _comp(comp), _alloc(alloc) {
+	: _comp(comp), _alloc(alloc), _size(0) {
 		insert(first, last);
 	}
 	
 	map(const map<Key, T, Compare, Allocator>& src)
-	: _comp(src._comp), _alloc(src._alloc) {
+	: _comp(src._comp), _alloc(src._alloc), _size(0) {
 		*this = src;
 	}
 	
@@ -88,7 +88,7 @@ public:
 	const_reverse_iterator rend() const { return const_reverse_iterator(const_iterator(_tree.get_sentinel())); }
 
 	// // capacity:
-	size_type size()	 const { return _tree.size(); }
+	size_type size()	 const { return _size; }
 	size_type max_size() const { return _alloc.max_size(); }
 	bool 	  empty()	 const { return _tree.get_root() == _tree.get_sentinel(); }
 
@@ -108,6 +108,7 @@ public:
 		
 		n = new RBNode<value_type>(val, _tree.get_sentinel());
 		_tree.insert(n);
+		_size++;
 		return ft::make_pair(iterator(n), true);
 	}
 
@@ -140,6 +141,7 @@ public:
 			_tree.set_root(_tree.get_sentinel());
 		}
 		delete n;
+		_size--;
 		return 1;
 	}
 
@@ -240,6 +242,7 @@ private:
 	value_compare		_comp;
 	allocator_type		_alloc;
 	RBTree<value_type>	_tree;
+	size_type			_size;
 
 	node *_findNode(const key_type& k) const {
 		value_type val(k, mapped_type());
