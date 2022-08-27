@@ -123,6 +123,10 @@ public:
 		return _root;
 	}
 
+	void set_sentinel(node* n) {
+		_nil = n;
+	}
+
 	void set_root(node* n) {
 		_root = n;
 	}
@@ -134,7 +138,7 @@ public:
 		return 1 + this->size(node->_left) + this->size(node->_right);
 	}
 
-// private:
+private:
 	node* _root;
 	node* _nil;
 

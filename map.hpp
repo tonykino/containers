@@ -161,18 +161,18 @@ public:
 	void swap(map<Key, T, Compare, Allocator>& rhs) { // TODO - refactor this shitty code
 		value_compare		tmp_comp = rhs._comp;
 		allocator_type		tmp_alloc = rhs._alloc;
-		node * tmp_root = rhs._tree._root;
-		node * tmp_nil = rhs._tree._nil;
+		node * tmp_root = rhs._tree.get_root();
+		node * tmp_nil = rhs._tree.get_sentinel();
 
 		rhs._comp = _comp;
 		rhs._alloc = _alloc;
-		rhs._tree._root = _tree._root;  // TODO - use setter
-		rhs._tree._nil = _tree._nil; // TODO - use setter
+		rhs._tree.set_root(_tree.get_root());
+		rhs._tree.set_sentinel(_tree.get_sentinel());
 
 		_comp = tmp_comp;
 		_alloc = tmp_alloc;
-		_tree._root = tmp_root; // TODO - use setter
-		_tree._nil = tmp_nil; // TODO - use setter
+		_tree.set_root(tmp_root);
+		_tree.set_sentinel(tmp_nil);
 	}
 
 	void clear() {
