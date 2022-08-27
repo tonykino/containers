@@ -234,7 +234,7 @@ public:
 		return pair;
 	}
 
-// private:
+private:
 	typedef RBNode<value_type> node;
 
 	value_compare		_comp;

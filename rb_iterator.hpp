@@ -47,11 +47,11 @@ struct RBIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
 	}
 
 	bool operator==(const RBIterator& rhs) const {
-		return _node->_key == rhs._node->_key;
+		return _node == rhs._node;
 	}
 
 	bool operator!=(const RBIterator& rhs) const {
-		return _node->_key != rhs._node->_key;
+		return _node != rhs._node;
 	}
 
 	reference operator*() const {
@@ -107,11 +107,11 @@ struct RBConstIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
 	}
 
 	bool operator==(const RBConstIterator& rhs) const {
-		return _node->_key == rhs._node->_key;
+		return _node == rhs._node;
 	}
 
 	bool operator!=(const RBConstIterator& rhs) const {
-		return _node->_key != rhs._node->_key;
+		return _node != rhs._node;
 	}
 
 	reference operator*() const {
