@@ -23,7 +23,7 @@ public:
 
 		while (x != _nil) {
 			y = x;
-			if (z->_key < x->_key)
+			if (z->_key.first < x->_key.first)
 				x = x->_left;
 			else
 				x = x->_right;
@@ -32,7 +32,7 @@ public:
 		z->_p = y;
 		if (y == _nil)
 			_root = z;
-		else if (z->_key < y->_key)
+		else if (z->_key.first < y->_key.first)
 			y->_left = z;
 		else
 			y->_right = z;
