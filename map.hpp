@@ -82,10 +82,10 @@ public:
 	const_iterator begin() const { return const_iterator((size() == 0) ? _tree.get_sentinel() : _tree.min()); }
 	iterator end() { return iterator(_tree.get_sentinel()); }
 	const_iterator end() const { return const_iterator(_tree.get_sentinel()); }
-	reverse_iterator rbegin() { return reverse_iterator(iterator((size() == 0) ? _tree.get_sentinel() : _tree.max())); }
-	const_reverse_iterator rbegin() const { return const_reverse_iterator(const_iterator((size() == 0) ? _tree.get_sentinel() : _tree.max())); }
-	reverse_iterator rend() { return reverse_iterator(iterator(_tree.get_sentinel())); }
-	const_reverse_iterator rend() const { return const_reverse_iterator(const_iterator(_tree.get_sentinel())); }
+	reverse_iterator rbegin() { return reverse_iterator(end()); }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
+	reverse_iterator rend() { return reverse_iterator(begin()); }
+	const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
 	// // capacity:
 	size_type size()	 const { return _size; }

@@ -86,10 +86,10 @@ public:
 	iterator end()	 { return _end; }
 	const_iterator begin() const { return _start; }
 	const_iterator end()   const { return _end; }
-	reverse_iterator rbegin() { return reverse_iterator(empty() ? _start : (_end - 1)); }
-	reverse_iterator rend()   { return reverse_iterator(empty() ? _start : (_start - 1)); }
-	const_reverse_iterator rbegin() const { return const_reverse_iterator(empty() ? _start : (_end - 1)); }
-	const_reverse_iterator rend()   const { return const_reverse_iterator(empty() ? _start : (_start - 1)); }
+	reverse_iterator rbegin() { return reverse_iterator(end()); }
+	reverse_iterator rend()   { return reverse_iterator(begin()); }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
+	const_reverse_iterator rend()   const { return const_reverse_iterator(begin()); }
 
 	// 23.2.4.2 capacity:
 	size_type size()	 const { return _end - _start; }
@@ -165,11 +165,19 @@ public:
 	template <class InputIterator>
 	void insert(iterator pos, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
-		difference_type n = last - first;
+		difference_type n = 0;
+		InputIterator it = first;
+		while (it != last) {
+			n++;
+			it++;
+		}
+
 		pos = _reserve_at(pos, n);
 		_shiftRight(pos, n);
-		for (size_type i = 0; first + i < last; i++)
-			_alloc.construct(pos + i, *(first + i));
+
+		it = first;
+		for (size_type i = 0; it != last; i++, it++)
+			_alloc.construct(pos + i, *it);
 		_end = _end + n;
 	}
 	

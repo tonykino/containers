@@ -30,7 +30,7 @@ class reverse_iterator {
 
 	reference operator*() const {
 		I tmp = _it;
-		return *tmp;
+		return (*--tmp);
 	}
 
 	pointer operator->() const {
