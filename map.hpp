@@ -29,7 +29,7 @@ public:
 	typedef typename allocator_type::pointer pointer;
 	typedef typename allocator_type::const_pointer const_pointer;
 	typedef RBIterator<value_type> iterator;
-	typedef RBConstIterator<value_type> const_iterator; // todo : replace constpointer
+	typedef RBConstIterator<value_type> const_iterator;
 	typedef ft::reverse_iterator<iterator> reverse_iterator;
 	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 	typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
@@ -208,7 +208,11 @@ public:
 	}
 
 	const_iterator lower_bound(const key_type& k) const {
-		return const_iterator(lower_bound(k));
+		value_type val(k, mapped_type());
+		node * node = _tree.min();
+		while (node != _tree.get_sentinel() && _comp(node->_key, val))
+			node = node->successor();
+		return const_iterator(node);
 	}
 
 	iterator upper_bound(const key_type& k) {
@@ -220,7 +224,11 @@ public:
 	}
 
 	const_iterator upper_bound(const key_type& k) const {
-		return const_iterator(upper_bound(k));
+		value_type val(k, mapped_type());
+		node * node = _tree.min();
+		while (node != _tree.get_sentinel() && !_comp(val, node->_key))
+			node = node->successor();
+		return const_iterator(node);
 	}
 
 	ft::pair<iterator,iterator> equal_range(const key_type& k) {

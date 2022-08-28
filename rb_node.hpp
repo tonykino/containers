@@ -108,7 +108,6 @@ public:
 	}
 
 	friend std::ostream & operator<<(std::ostream & o, node const & rhs) {
-		// TODO - faire en sorte qu'on puisse utiliser cet overload avec une pair as node
 		o << "&:" << &rhs << " key:" << rhs._key.first << ":" << rhs._key.second << " left:" << rhs._left << " right:" << rhs._right << " p:" << rhs._p << " color:" << rhs._c;
 		// o << "&:" << &rhs << " key:" << rhs._key << " left:" << rhs._left << " right:" << rhs._right << " p:" << rhs._p << " color:" << rhs._c;
 		return o;
