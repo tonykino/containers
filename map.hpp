@@ -161,18 +161,21 @@ public:
 	}
 
 	void swap(map<Key, T, Compare, Allocator>& rhs) { // TODO - refactor this shitty code
-		value_compare		tmp_comp = rhs._comp;
-		allocator_type		tmp_alloc = rhs._alloc;
+		value_compare tmp_comp = rhs._comp;
+		allocator_type tmp_alloc = rhs._alloc;
 		node * tmp_root = rhs._tree.get_root();
 		node * tmp_nil = rhs._tree.get_sentinel();
+		size_type tmp_size = rhs._size;
 
 		rhs._comp = _comp;
 		rhs._alloc = _alloc;
+		rhs._size = _size;
 		rhs._tree.set_root(_tree.get_root());
 		rhs._tree.set_sentinel(_tree.get_sentinel());
 
 		_comp = tmp_comp;
 		_alloc = tmp_alloc;
+		_size = tmp_size;
 		_tree.set_root(tmp_root);
 		_tree.set_sentinel(tmp_nil);
 	}
