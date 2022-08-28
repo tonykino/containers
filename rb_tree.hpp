@@ -4,12 +4,12 @@
 #include "rb_node.hpp"
 #include "type_traits.hpp"
 
-template <typename T>
+template <typename T, class Compare>
 class RBTree {
 public:
 	typedef RBNode<T> node;
-
-	RBTree(): _nil(new node()) { _root = _nil; }
+	typedef Compare value_compare;
+	RBTree(value_compare const &comp = value_compare()): _nil(new node()), _comp(comp) { _root = _nil; }
 	~RBTree() { delete _nil; }
 
 	void kinsert(T& k) {
@@ -23,7 +23,7 @@ public:
 
 		while (x != _nil) {
 			y = x;
-			if (z->_key.first < x->_key.first)
+			if (_comp(z->_key, x->_key))
 				x = x->_left;
 			else
 				x = x->_right;
@@ -32,7 +32,7 @@ public:
 		z->_p = y;
 		if (y == _nil)
 			_root = z;
-		else if (z->_key.first < y->_key.first)
+		else if (_comp(z->_key, y->_key))
 			y->_left = z;
 		else
 			y->_right = z;
@@ -134,6 +134,7 @@ public:
 private:
 	node* _root;
 	node* _nil;
+	Compare _comp;
 
 	void insert_fixup(node *z) {
 		while (z->_p->_c == red) {

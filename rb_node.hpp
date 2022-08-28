@@ -5,7 +5,7 @@
 
 enum Color { black, red };
 
-template <class T>
+template <class T, class Compare>
 class RBTree;
 
 template <class T>

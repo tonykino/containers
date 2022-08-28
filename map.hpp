@@ -50,18 +50,18 @@ public:
 
 	// 23.3.1.1 construct/copy/destroy:
 	explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
-	: _comp(comp), _alloc(alloc), _size(0) {
+	: _comp(comp), _alloc(alloc), _tree(RBTree<value_type, value_compare>(_comp)), _size(0) {
 	}
 
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator(),
 		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
-	: _comp(comp), _alloc(alloc), _size(0) {
+	: _comp(comp), _alloc(alloc), _tree(RBTree<value_type, value_compare>(_comp)), _size(0) {
 		insert(first, last);
 	}
 
 	map(const map<Key, T, Compare, Allocator>& src)
-	: _comp(src._comp), _alloc(src._alloc), _size(0) {
+	: _comp(src._comp), _alloc(src._alloc), _tree(RBTree<value_type, value_compare>(_comp)), _size(0) {
 		*this = src;
 	}
 
@@ -252,7 +252,7 @@ private:
 
 	value_compare		_comp;
 	allocator_type		_alloc;
-	RBTree<value_type>	_tree;
+	RBTree<value_type, value_compare>	_tree;
 	size_type			_size;
 
 	node *_findNode(const key_type& k) const {
