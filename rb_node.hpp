@@ -43,7 +43,7 @@ public:
 	node* min() {
 		node *x = this;
 		if (x == _sentinel)
-			return _sentinel;
+			x = _root->get_root();
 
 		while (x->_left != _sentinel)
 			x = x->_left;
@@ -53,7 +53,7 @@ public:
 	node* max() {
 		node *x = this;
 		if (x == _sentinel)
-			return _sentinel;
+			x = _root->get_root();
 			
 		while (x->_right != _sentinel)
 			x = x->_right;
@@ -63,7 +63,7 @@ public:
 	node* successor() {
 		node *x = this;
 		if (_sentinel == NULL)
-			return _root->min();
+			return _root->get_root()->min();
 
 		if (x->_right != _sentinel)
 			return x->_right->min();
@@ -79,7 +79,7 @@ public:
 	node* predecessor() {
 		node *x = this;
 		if (_sentinel == NULL)
-			return _root->max();
+			return _root->get_root()->max();
 
 		if (x->_left != _sentinel)
 			return x->_left->max();

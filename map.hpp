@@ -52,19 +52,19 @@ public:
 	explicit map(const Compare& comp = Compare(), const Allocator& alloc = Allocator())
 	: _comp(comp), _alloc(alloc), _size(0) {
 	}
-	
+
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator(),
 		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
 	: _comp(comp), _alloc(alloc), _size(0) {
 		insert(first, last);
 	}
-	
+
 	map(const map<Key, T, Compare, Allocator>& src)
 	: _comp(src._comp), _alloc(src._alloc), _size(0) {
 		*this = src;
 	}
-	
+
 	~map() {
 		clear();
 	}
