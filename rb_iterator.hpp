@@ -7,12 +7,12 @@
 namespace ft {
 
 template<class T> // , bool is_const>
-struct RBIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
+struct RBIterator: public ft::iterator<std::bidirectional_iterator_tag, T> {
 	typedef T																			value_type;
-	typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
+	typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type	difference_type;
 	typedef T *																			pointer;
 	typedef T &																			reference;
-	typedef bidirectional_iterator_tag													iterator_category;
+	typedef std::bidirectional_iterator_tag												iterator_category;
 	typedef RBNode<T>																	node;
 	
 	RBIterator(node * x = NULL) : _node(x) {}
@@ -66,12 +66,12 @@ struct RBIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
 };
 
 template<class T>
-struct RBConstIterator: public ft::iterator<ft::bidirectional_iterator_tag, T> {
+struct RBConstIterator: public ft::iterator<std::bidirectional_iterator_tag, T> {
 	typedef T																			value_type;
-	typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
+	typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type	difference_type;
 	typedef T const *																	pointer;
 	typedef T const &																	reference;
-	typedef bidirectional_iterator_tag													iterator_category;
+	typedef std::bidirectional_iterator_tag												iterator_category;
 	typedef RBNode<T>																	node;
 	
 	RBConstIterator(node * x = NULL): _node(x) {}

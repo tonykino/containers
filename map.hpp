@@ -18,7 +18,7 @@ template <class Key, class T, class Compare = std::less<Key>,
 class map {
 
 public:
-	// types:   
+	// types:
 	typedef Key key_type;
 	typedef T mapped_type;
 	typedef ft::pair<const key_type, mapped_type> value_type;
