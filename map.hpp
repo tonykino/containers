@@ -10,6 +10,7 @@
 #include "reverse_iterator.hpp"
 #include "rb_iterator.hpp"
 #include "pair.hpp"
+#include "lexicographical_compare.hpp"
 
 namespace ft {
 
@@ -294,7 +295,7 @@ bool operator==(const map<Key,T,Compare,Allocator>& x, const map<Key,T,Compare,A
 
 template <class Key, class T, class Compare, class Allocator>
 bool operator< (const map<Key,T,Compare,Allocator>& x, const map<Key,T,Compare,Allocator>& y) {
-	return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); // todo - use ft::lexicographical_compare
+	return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 
 template <class Key, class T, class Compare, class Allocator>

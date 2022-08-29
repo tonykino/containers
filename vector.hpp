@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "type_traits.hpp"
 #include "reverse_iterator.hpp"
+#include "lexicographical_compare.hpp"
 
 namespace ft {
 	
@@ -275,7 +276,7 @@ bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
 
 template <class T, class Allocator>
 bool operator<(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
-	return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); // todo - use ft::lexicographical_compare
+	return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 
 template <class T, class Allocator>
