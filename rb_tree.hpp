@@ -12,11 +12,6 @@ public:
 	RBTree(value_compare const &comp = value_compare()): _nil(new node()), _comp(comp) { _root = _nil; }
 	~RBTree() { delete _nil; }
 
-	void kinsert(T& k) {
-		node *n = new node(k, _nil);
-		insert(n);
-	}
-
 	void insert(node *z) {
 		node *y = _nil;
 		node *x = _root;
