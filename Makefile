@@ -3,7 +3,7 @@ NAME		=	containers
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -MD
 
-SRCS		=	main.cpp test_stack.cpp test_vector.cpp #test_rbt.cpp
+SRCS		=	$(addprefix tester/, main.cpp test_map.cpp test_stack.cpp test_vector.cpp)
 OBJS		=	$(SRCS:.cpp=.o)
 
 all:$(NAME)
@@ -15,6 +15,7 @@ $(NAME):$(OBJS)
 
 clean:
 	rm -f *.o *.d
+	rm tester/*.d tester/*.o
 
 fclean: clean
 	rm -f $(NAME)

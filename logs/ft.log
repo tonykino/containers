@@ -1,0 +1,508 @@
+size: 1 top: 2
+size: 2 top: 4
+size: 3 top: 6
+size: 4 top: 8
+size: 5 top: 10
+Comparaison tests:
+c1 == c2 1
+c1 != c2 0
+c1 > c2 0
+c1 >= c2 1
+c1 < c2 0
+c1 <= c2 1
+C1: 
+size: 5 top: 10
+size: 4 top: 8
+size: 3 top: 6
+size: 2 top: 4
+size: 1 top: 2
+C2: 
+size: 5 top: 10
+size: 4 top: 8
+size: 3 top: 6
+size: 2 top: 4
+size: 1 top: 2
+
+   --- VECTOR CONSTRUCTORS ---
+s:7 c:8 | 0 1 2 3 4 5 6 
+s:7 c:7 | 0 1 2 3 4 5 6 
+s:5 c:5 | 1 2 3 4 5 
+s:7 c:7 | 3 3 3 3 3 3 3 
+
+   --- VECTOR OPERATOR= ---
+foo: s:3 c:3 | 0 0 0 
+bar: s:5 c:5 | 0 0 0 0 0 
+foo: s:0 c:3 | 
+bar: s:3 c:5 | 0 0 0 
+
+   --- VECTOR.INSERT(POS, N, VAL) ---
+s:7 c:7 | 3 3 3 3 3 3 3 
+s:8 c:14 | 3 3 3 4 3 3 3 3 
+s:11 c:14 | 3 3 3 4 42 42 42 3 3 3 3 
+s:111 c:111 | 3 3 3 4 42 42 42 3 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 3 3 3 
+s:111 c:111 | 3 3 3 4 42 42 42 3 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 3 3 3 
+
+   --- VECTOR.INSERT(POS, FIRST, LAST) ---
+s:7 c:7 | 3 3 3 3 3 3 3 
+s:7 c:8 | 0 1 2 3 4 5 6 
+s:12 c:14 | 3 3 3 1 2 3 4 5 3 3 3 3 
+
+   --- VECTOR.PUSH_BACK --- 
+s:0 c:0 | 
+s:1 c:1 | 1 
+s:2 c:2 | 1 3 
+s:3 c:4 | 1 3 5 
+s:5 c:8 | 1 3 5 7 9 
+s:8 c:8 | 1 3 5 7 9 2 4 6 
+s:10 c:16 | 1 3 5 7 9 2 4 6 8 10 
+s:10 c:10 | 1 3 5 7 9 2 4 6 8 10 
+s:11 c:20 | 1 3 5 7 9 2 4 6 8 10 11 
+s:10 c:10 | 3 3 3 3 3 3 3 3 3 3 
+
+   --- VECTOR.EMPTY --- 
+v1:1 v2:1 v3:1 v4:0
+
+   --- VECTOR.ERASE(POS) --- 
+s:7 c:8 | 0 1 2 3 4 5 6 
+s:6 c:8 | 0 1 2 4 5 6 
+
+   --- VECTOR.ERASE(FIRST, LAST) --- 
+s:7 c:8 | 0 1 2 3 4 5 6 
+s:3 c:8 | 0 5 6 
+
+   --- VECTOR.RESIZE --- 
+s:6 c:8 | 0 1 2 3 4 5 
+s:10 c:12 | 0 1 2 3 4 5 0 0 0 0 
+s:3 c:12 | 0 1 2 
+
+   --- VECTOR.POPBACK --- 
+s:6 c:8 | 0 1 2 3 4 5 
+s:5 c:8 | 0 1 2 3 4 
+s:2 c:8 | 0 1 
+
+   --- VECTOR - ELEMENT ACCESS --- 
+s:6 c:8 | 0 1 2 3 4 5 
+v1[2]:2 v1.at(2):2 v1.front():0 v1.back():5
+
+   --- VECTOR.SWAP --- 
+s:3 c:3 | 100 100 100 
+s:5 c:5 | 200 200 200 200 200 
+s:5 c:5 | 200 200 200 200 200 
+s:3 c:3 | 100 100 100 
+s:3 c:3 | 100 100 100 
+s:5 c:5 | 200 200 200 200 200 
+
+mike s:83 c:83 | 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
+bob s:84 c:84 | 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+mike s:9 c:83 | 8 8 8 8 8 3 3 3 3 
+bob s:42 c:84 | 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+mike s:42 c:84 | 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+bob s:9 c:83 | 8 8 8 8 8 3 3 3 3 
+
+   --- VECTOR COMPARAISON OPERATORS --- 
+s:3 c:3 | 100 100 100 
+s:3 c:3 | 100 100 100 
+s:4 c:4 | 42 42 42 42 
+foo==bar:1 foo==baz:0 bar==baz:0
+foo!=bar:0 foo!=baz:1 bar!=baz:1
+foo<bar:0 foo<baz:0 bar<baz:0
+foo<=bar:1 foo<=baz:0 bar<=baz:0
+foo>bar:0 foo>baz:1 bar>baz:1
+foo>=bar:1 foo>=baz:1 bar>=baz:1
+
+   --- VECTOR ANOTHER INSERT TEST --- 
+v1 contains: 501 502 503 300 300 400 400 200 100 100 100
+
+   --- STD::VECTOR AWESOME TESTS ---
+Int constructor
+s:21 c:21 | 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 
+s:0 c:0 | 
+Int constructor
+Int constructor
+Int constructor
+s:3 c:4 | 12 8 16 
+SAME ?0
+s:3 c:21 | 12 8 16 
+s:3 c:21 | 12 8 16 
+SAME ?0
+s:6 c:21 | 12 8 16 12 8 16 
+s:9 c:21 | 12 8 16 12 8 16 12 8 16 
+end awesome test
+
+   --- MAP CONSTRUCTORS ---
+size: 7
+Content is:
+- key: 0 | value: 0
+- key: 1 | value: 1
+- key: 2 | value: 2
+- key: 3 | value: 3
+- key: 4 | value: 4
+- key: 5 | value: 5
+- key: 6 | value: 6
+
+size: 7
+Content is:
+- key: 0 | value: 0
+- key: 1 | value: 1
+- key: 2 | value: 2
+- key: 3 | value: 3
+- key: 4 | value: 4
+- key: 5 | value: 5
+- key: 6 | value: 6
+
+size: 7
+Content is:
+- key: 0 | value: 0
+- key: 1 | value: 1
+- key: 2 | value: 2
+- key: 3 | value: 3
+- key: 4 | value: 4
+- key: 5 | value: 5
+- key: 6 | value: 6
+
+
+   --- MAP OPERATOR= ---
+foo: size: 7
+Content is:
+- key: 0 | value: 0
+- key: 1 | value: 1
+- key: 2 | value: 2
+- key: 3 | value: 3
+- key: 4 | value: 4
+- key: 5 | value: 5
+- key: 6 | value: 6
+
+bar: size: 0
+Content is:
+
+foo: size: 0
+Content is:
+
+bar: size: 7
+Content is:
+- key: 0 | value: 0
+- key: 1 | value: 1
+- key: 2 | value: 2
+- key: 3 | value: 3
+- key: 4 | value: 4
+- key: 5 | value: 5
+- key: 6 | value: 6
+
+
+   --- MAP - ELEMENT ACCESS --- 
+size: 6
+Content is:
+- key: 0 | value: 0
+- key: 1 | value: 1
+- key: 2 | value: 2
+- key: 3 | value: 3
+- key: 4 | value: 4
+- key: 5 | value: 5
+
+foo[2]:2 foo[4]:4
+
+   --- MAP.INSERT ---
+size: 1
+Content is:
+- key: Hola | value: Quetal
+
+size: 2
+Content is:
+- key: Hola | value: Quetal
+- key: The foo | value: bar baz
+
+size: 3
+Content is:
+- key: Hola | value: Quetal
+- key: Lorem | value: ipsum
+- key: The foo | value: bar baz
+
+
+   --- MAP.ERASE --- 
+size: 21
+Content is:
+- key: 1 | value: 0
+- key: 2 | value: 3
+- key: 3 | value: 6
+- key: 4 | value: 9
+- key: 5 | value: 12
+- key: 6 | value: 15
+- key: 7 | value: 18
+- key: 8 | value: 21
+- key: 9 | value: 24
+- key: 10 | value: 27
+- key: 11 | value: 30
+- key: 12 | value: 33
+- key: 13 | value: 36
+- key: 14 | value: 39
+- key: 15 | value: 42
+- key: 16 | value: 45
+- key: 17 | value: 48
+- key: 18 | value: 51
+- key: 19 | value: 54
+- key: 20 | value: 57
+- key: 42 | value: 1337
+
+size: 20
+Content is:
+- key: 1 | value: 0
+- key: 3 | value: 6
+- key: 4 | value: 9
+- key: 5 | value: 12
+- key: 6 | value: 15
+- key: 7 | value: 18
+- key: 8 | value: 21
+- key: 9 | value: 24
+- key: 10 | value: 27
+- key: 11 | value: 30
+- key: 12 | value: 33
+- key: 13 | value: 36
+- key: 14 | value: 39
+- key: 15 | value: 42
+- key: 16 | value: 45
+- key: 17 | value: 48
+- key: 18 | value: 51
+- key: 19 | value: 54
+- key: 20 | value: 57
+- key: 42 | value: 1337
+
+size: 19
+Content is:
+- key: 1 | value: 0
+- key: 3 | value: 6
+- key: 4 | value: 9
+- key: 5 | value: 12
+- key: 6 | value: 15
+- key: 7 | value: 18
+- key: 8 | value: 21
+- key: 9 | value: 24
+- key: 10 | value: 27
+- key: 11 | value: 30
+- key: 12 | value: 33
+- key: 13 | value: 36
+- key: 14 | value: 39
+- key: 15 | value: 42
+- key: 16 | value: 45
+- key: 17 | value: 48
+- key: 18 | value: 51
+- key: 19 | value: 54
+- key: 20 | value: 57
+
+size: 2
+Content is:
+- key: 1 | value: 0
+- key: 20 | value: 57
+
+
+   --- MAP.SWAP --- 
+size: 20
+Content is:
+- key: 5 | value: 6
+- key: 6 | value: 9
+- key: 7 | value: 12
+- key: 8 | value: 15
+- key: 9 | value: 18
+- key: 10 | value: 21
+- key: 11 | value: 24
+- key: 12 | value: 27
+- key: 13 | value: 30
+- key: 14 | value: 33
+- key: 15 | value: 36
+- key: 16 | value: 39
+- key: 17 | value: 42
+- key: 18 | value: 45
+- key: 19 | value: 48
+- key: 20 | value: 51
+- key: 21 | value: 54
+- key: 22 | value: 57
+- key: 23 | value: 60
+- key: 24 | value: 63
+
+size: 20
+Content is:
+- key: 12 | value: 42
+- key: 13 | value: 45
+- key: 14 | value: 48
+- key: 15 | value: 51
+- key: 16 | value: 54
+- key: 17 | value: 57
+- key: 18 | value: 60
+- key: 19 | value: 63
+- key: 20 | value: 66
+- key: 21 | value: 69
+- key: 22 | value: 72
+- key: 23 | value: 75
+- key: 24 | value: 78
+- key: 25 | value: 81
+- key: 26 | value: 84
+- key: 27 | value: 87
+- key: 28 | value: 90
+- key: 29 | value: 93
+- key: 30 | value: 96
+- key: 31 | value: 99
+
+size: 20
+Content is:
+- key: 12 | value: 42
+- key: 13 | value: 45
+- key: 14 | value: 48
+- key: 15 | value: 51
+- key: 16 | value: 54
+- key: 17 | value: 57
+- key: 18 | value: 60
+- key: 19 | value: 63
+- key: 20 | value: 66
+- key: 21 | value: 69
+- key: 22 | value: 72
+- key: 23 | value: 75
+- key: 24 | value: 78
+- key: 25 | value: 81
+- key: 26 | value: 84
+- key: 27 | value: 87
+- key: 28 | value: 90
+- key: 29 | value: 93
+- key: 30 | value: 96
+- key: 31 | value: 99
+
+size: 20
+Content is:
+- key: 5 | value: 6
+- key: 6 | value: 9
+- key: 7 | value: 12
+- key: 8 | value: 15
+- key: 9 | value: 18
+- key: 10 | value: 21
+- key: 11 | value: 24
+- key: 12 | value: 27
+- key: 13 | value: 30
+- key: 14 | value: 33
+- key: 15 | value: 36
+- key: 16 | value: 39
+- key: 17 | value: 42
+- key: 18 | value: 45
+- key: 19 | value: 48
+- key: 20 | value: 51
+- key: 21 | value: 54
+- key: 22 | value: 57
+- key: 23 | value: 60
+- key: 24 | value: 63
+
+size: 20
+Content is:
+- key: 5 | value: 6
+- key: 6 | value: 9
+- key: 7 | value: 12
+- key: 8 | value: 15
+- key: 9 | value: 18
+- key: 10 | value: 21
+- key: 11 | value: 24
+- key: 12 | value: 27
+- key: 13 | value: 30
+- key: 14 | value: 33
+- key: 15 | value: 36
+- key: 16 | value: 39
+- key: 17 | value: 42
+- key: 18 | value: 45
+- key: 19 | value: 48
+- key: 20 | value: 51
+- key: 21 | value: 54
+- key: 22 | value: 57
+- key: 23 | value: 60
+- key: 24 | value: 63
+
+size: 20
+Content is:
+- key: 12 | value: 42
+- key: 13 | value: 45
+- key: 14 | value: 48
+- key: 15 | value: 51
+- key: 16 | value: 54
+- key: 17 | value: 57
+- key: 18 | value: 60
+- key: 19 | value: 63
+- key: 20 | value: 66
+- key: 21 | value: 69
+- key: 22 | value: 72
+- key: 23 | value: 75
+- key: 24 | value: 78
+- key: 25 | value: 81
+- key: 26 | value: 84
+- key: 27 | value: 87
+- key: 28 | value: 90
+- key: 29 | value: 93
+- key: 30 | value: 96
+- key: 31 | value: 99
+
+size: 3
+Content is:
+- key: 5 | value: 6
+- key: 24 | value: 63
+- key: 42 | value: 1337
+
+size: 19
+Content is:
+- key: 12 | value: 42
+- key: 13 | value: 45
+- key: 14 | value: 48
+- key: 16 | value: 54
+- key: 17 | value: 57
+- key: 18 | value: 60
+- key: 19 | value: 63
+- key: 20 | value: 66
+- key: 21 | value: 69
+- key: 22 | value: 72
+- key: 23 | value: 75
+- key: 24 | value: 78
+- key: 25 | value: 81
+- key: 26 | value: 84
+- key: 27 | value: 87
+- key: 28 | value: 90
+- key: 29 | value: 93
+- key: 30 | value: 96
+- key: 31 | value: 99
+
+size: 19
+Content is:
+- key: 12 | value: 42
+- key: 13 | value: 45
+- key: 14 | value: 48
+- key: 16 | value: 54
+- key: 17 | value: 57
+- key: 18 | value: 60
+- key: 19 | value: 63
+- key: 20 | value: 66
+- key: 21 | value: 69
+- key: 22 | value: 72
+- key: 23 | value: 75
+- key: 24 | value: 78
+- key: 25 | value: 81
+- key: 26 | value: 84
+- key: 27 | value: 87
+- key: 28 | value: 90
+- key: 29 | value: 93
+- key: 30 | value: 96
+- key: 31 | value: 99
+
+size: 3
+Content is:
+- key: 5 | value: 6
+- key: 24 | value: 63
+- key: 42 | value: 1337
+
+
+   --- MAP.EQUAL_RANGE --- 
+lower bound points to: b => 20
+upper bound points to: c => 30
+
+   --- MAP.KEY_COMP --- 
+foo contains:
+a => 100
+
+   --- MAP.VALUE_COMP --- 
+x => 1001
+
+   --- MAP.LOWER_AND_UPPER_BOUND --- 
+176
+75
+177
+85
