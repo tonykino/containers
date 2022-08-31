@@ -15,17 +15,21 @@ struct RBIterator: public ft::iterator<std::bidirectional_iterator_tag, T> {
 	typedef std::bidirectional_iterator_tag												iterator_category;
 	typedef RBNode<T>																	node;
 	
-	RBIterator(node * x = NULL) : _node(x) {}
-	RBIterator(const RBIterator& mit) : _node(mit._node) {}
+	RBIterator(node * x = NULL, node * root = NULL) : _node(x), _root(root) {}
+	RBIterator(const RBIterator& mit) : _node(mit._node), _root(mit._root) {}
 	virtual ~RBIterator() {};
 
 	RBIterator& operator=(const RBIterator& rhs) {
 		_node = rhs._node;
+		_root = rhs._root;
 		return *this;
 	}
 
 	RBIterator& operator++() {
-		_node = _node->successor();
+		if (_node->_sentinel == NULL)
+			_node = _node->min();
+		else
+			_node = _node->successor();
 		return *this;
 	}
 
@@ -36,7 +40,10 @@ struct RBIterator: public ft::iterator<std::bidirectional_iterator_tag, T> {
 	}
 
 	RBIterator& operator--() {
-		_node = _node->predecessor();
+		if (_node->_sentinel == NULL)
+			_node = _root->max();
+		else
+			_node = _node->predecessor();
 		return *this;
 	}
 
@@ -55,14 +62,15 @@ struct RBIterator: public ft::iterator<std::bidirectional_iterator_tag, T> {
 	}
 
 	reference operator*() const {
-		return _node->_key;
+		return *_node->_key;
 	}
 
 	pointer operator->() const {
-		return &(_node->_key);
+		return _node->_key;
 	}
 
 	RBNode<value_type> * _node;
+	RBNode<value_type> * _root;
 };
 
 template<class T>
@@ -74,18 +82,22 @@ struct RBConstIterator: public ft::iterator<std::bidirectional_iterator_tag, T> 
 	typedef std::bidirectional_iterator_tag												iterator_category;
 	typedef RBNode<T>																	node;
 	
-	RBConstIterator(node * x = NULL): _node(x) {}
-	RBConstIterator(const RBIterator<value_type>& mit): _node(mit._node) {}
-	RBConstIterator(const RBConstIterator& mit): _node(mit._node) {}
+	RBConstIterator(node * x = NULL, node * root = NULL): _node(x), _root(root) {}
+	RBConstIterator(const RBIterator<value_type>& mit): _node(mit._node), _root(mit._root) {}
+	RBConstIterator(const RBConstIterator& mit): _node(mit._node), _root(mit._root) {}
 	virtual ~RBConstIterator() {};
 
 	RBConstIterator& operator=(const RBConstIterator& rhs) {
 		_node = rhs._node;
+		_root = rhs._root;
 		return *this;
 	}
 
 	RBConstIterator& operator++() {
-		_node = _node->successor();
+		if (_node->_sentinel == NULL)
+			_node = _node->min();
+		else
+			_node = _node->successor();
 		return *this;
 	}
 
@@ -96,7 +108,10 @@ struct RBConstIterator: public ft::iterator<std::bidirectional_iterator_tag, T> 
 	}
 
 	RBConstIterator& operator--() {
-		_node = _node->predecessor();
+		if (_node->_sentinel == NULL)
+			_node = _root->max();
+		else
+			_node = _node->predecessor();
 		return *this;
 	}
 
@@ -115,14 +130,15 @@ struct RBConstIterator: public ft::iterator<std::bidirectional_iterator_tag, T> 
 	}
 
 	reference operator*() const {
-		return _node->_key;
+		return *_node->_key;
 	}
 
 	pointer operator->() const {
-		return &(_node->_key);
+		return _node->_key;
 	}
 
 	RBNode<value_type> * _node;
+	RBNode<value_type> * _root;
 };
 
 }

@@ -13,20 +13,16 @@ class RBNode {
 public:
 	typedef RBNode<T> node;
 
-	T _key;
+	T *_key;
 	node *_left;
 	node *_right;
 	node *_p;
 	Color _c;
 	node *_sentinel;
-	node *_root;
 	
-	RBNode(const T& key = T(), node* sentinel = NULL)
+	RBNode(T* key = NULL, node* sentinel = NULL)
 	: _key(key), _left(sentinel), _right(sentinel), _p(sentinel),
 	_c(black), _sentinel(sentinel) {
-		_root = get_root();
-		if (sentinel)
-			_sentinel->_root = _root;
 	};
 
 	node* search(T k) {
@@ -42,8 +38,6 @@ public:
 
 	node* min() {
 		node *x = this;
-		if (x == _sentinel)
-			x = _root->get_root();
 
 		while (x->_left != _sentinel)
 			x = x->_left;
@@ -52,8 +46,6 @@ public:
 
 	node* max() {
 		node *x = this;
-		if (x == _sentinel)
-			x = _root->get_root();
 			
 		while (x->_right != _sentinel)
 			x = x->_right;
@@ -62,8 +54,6 @@ public:
 
 	node* successor() {
 		node *x = this;
-		if (_sentinel == NULL)
-			return _root->get_root()->min();
 
 		if (x->_right != _sentinel)
 			return x->_right->min();
@@ -78,8 +68,6 @@ public:
 
 	node* predecessor() {
 		node *x = this;
-		if (_sentinel == NULL)
-			return _root->get_root()->max();
 
 		if (x->_left != _sentinel)
 			return x->_left->max();
@@ -92,12 +80,6 @@ public:
 		return y;
 	}
 
-	node* get_root() {
-		node *x = this;
-		while (x->_p != _sentinel)
-			x = x->_p;
-		return x;
-	}
 
 	static void inorder_walk(node *x, node *sentinel) {
 		if (x == sentinel) return;

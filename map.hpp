@@ -79,10 +79,10 @@ public:
 	}
 
 	// // iterators:
-	iterator begin() { return iterator((size() == 0) ? _tree.get_sentinel() : _tree.min()); }
-	const_iterator begin() const { return const_iterator((size() == 0) ? _tree.get_sentinel() : _tree.min()); }
-	iterator end() { return iterator(_tree.get_sentinel()); }
-	const_iterator end() const { return const_iterator(_tree.get_sentinel()); }
+	iterator begin() { return iterator((size() == 0) ? _tree.get_sentinel() : _tree.min(), _tree.get_root()); }
+	const_iterator begin() const { return const_iterator((size() == 0) ? _tree.get_sentinel() : _tree.min(), _tree.get_root()); }
+	iterator end() { return iterator(_tree.get_sentinel(), _tree.get_root()); }
+	const_iterator end() const { return const_iterator(_tree.get_sentinel(), _tree.get_root()); }
 	reverse_iterator rbegin() { return reverse_iterator(end()); }
 	const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
 	reverse_iterator rend() { return reverse_iterator(begin()); }
@@ -95,22 +95,28 @@ public:
 
 	// // 23.3.1.2 element access:
 	mapped_type& operator[](const key_type& k) {
-		node *n = _findNode(k);
+		value_type val(k, mapped_type());
+		node *n = _findNode(val);
+
 		if (n == _tree.get_sentinel())
 			insert(value_type(k, mapped_type()));
-		return _findNode(k)->_key.second;
+		return _findNode(val)->_key->second;
 	}
 
 	// // modifiers:
 	ft::pair<iterator, bool> insert(const value_type& val) {
 		node *n = _findNode(val);
 		if (n != _tree.get_sentinel())
-			return ft::make_pair(iterator(n), false);
+			return ft::make_pair(iterator(n, _tree.get_root()), false);
 		
-		n = new RBNode<value_type>(val, _tree.get_sentinel());
+		n = _node_alloc.allocate(1);
+		value_type * pa = this->_pair_alloc.allocate(1);
+		_pair_alloc.construct(pa, value_type(val));
+		_node_alloc.construct(n, node(pa, _tree.get_sentinel()));
+
 		_tree.insert(n);
 		_size++;
-		return ft::make_pair(iterator(n), true);
+		return ft::make_pair(iterator(n, _tree.get_root()), true);
 	}
 
 	iterator insert(iterator position, const value_type& val) {
@@ -141,7 +147,10 @@ public:
 			// std::cout << "Size is now 0, set root to sentinel\n"; 
 			_tree.set_root(_tree.get_sentinel());
 		}
-		delete n;
+		this->_pair_alloc.destroy(n->_key);
+		this->_pair_alloc.deallocate(n->_key, 1);
+		this->_node_alloc.destroy(n);
+		this->_node_alloc.deallocate(n, 1);
 		_size--;
 		return 1;
 	}
@@ -150,8 +159,10 @@ public:
 		size_type size = 0;
 		iterator it = first;
 
-		while (it++ != last)
+		while (it != last) {
+			it++;
 			size++;
+		}
 		it = first;
 		while (size) {
 			first++;
@@ -183,7 +194,7 @@ public:
 
 	void clear() {
 		while (_tree.get_root() != _tree.get_sentinel()) {
-			erase(_tree.get_root()->_key.first);
+			erase(_tree.get_root()->_key->first);
 		}
 	}
 
@@ -193,43 +204,51 @@ public:
 	allocator_type	get_allocator() const { return _alloc; }
 
 	// // 23.3.1.3 map operations:
-	iterator find(const key_type& k) { return iterator(_findNode(k)); }
-	const_iterator find(const key_type& k) const { return const_iterator(_findNode(k)); }
+	iterator find(const key_type& k) { return iterator(_findNode(k), _tree.get_root()); }
+	const_iterator find(const key_type& k) const { return const_iterator(_findNode(k), _tree.get_root()); }
 
 	size_type count(const key_type& k) const {
 		return (_findNode(k) != _tree.get_sentinel()) ? 1 : 0;
 	}
 
 	iterator lower_bound(const key_type& k) {
+		if (_size == 0)
+			return iterator(_tree.get_sentinel(), _tree.get_root());
 		value_type val(k, mapped_type());
 		node * node = _tree.min();
-		while (node != _tree.get_sentinel() && _comp(node->_key, val))
+		while (node != _tree.get_sentinel() && _comp(*node->_key, val))
 			node = node->successor();
-		return iterator(node);
+		return iterator(node, _tree.get_root());
 	}
 
 	const_iterator lower_bound(const key_type& k) const {
+		if (_size == 0)
+			return const_iterator(_tree.get_sentinel(), _tree.get_root());
 		value_type val(k, mapped_type());
 		node * node = _tree.min();
-		while (node != _tree.get_sentinel() && _comp(node->_key, val))
+		while (node != _tree.get_sentinel() && _comp(*node->_key, val))
 			node = node->successor();
-		return const_iterator(node);
+		return const_iterator(node, _tree.get_root());
 	}
 
 	iterator upper_bound(const key_type& k) {
+		if (_size == 0)
+			return iterator(_tree.get_sentinel(), _tree.get_root());
 		value_type val(k, mapped_type());
 		node * node = _tree.min();
-		while (node != _tree.get_sentinel() && !_comp(val, node->_key))
+		while (node != _tree.get_sentinel() && !_comp(val, *node->_key))
 			node = node->successor();
-		return iterator(node);
+		return iterator(node, _tree.get_root());
 	}
 
 	const_iterator upper_bound(const key_type& k) const {
+		if (_size == 0)
+			return const_iterator(_tree.get_sentinel(), _tree.get_root());
 		value_type val(k, mapped_type());
 		node * node = _tree.min();
-		while (node != _tree.get_sentinel() && !_comp(val, node->_key))
+		while (node != _tree.get_sentinel() && !_comp(val, *node->_key))
 			node = node->successor();
-		return const_iterator(node);
+		return const_iterator(node, _tree.get_root());
 	}
 
 	ft::pair<iterator,iterator> equal_range(const key_type& k) {
@@ -251,10 +270,12 @@ public:
 private:
 	typedef RBNode<value_type> node;
 
-	value_compare		_comp;
-	allocator_type		_alloc;
+	value_compare						_comp;
+	allocator_type						_alloc;
 	RBTree<value_type, value_compare>	_tree;
-	size_type			_size;
+	size_type							_size;
+	typename allocator_type::template rebind< value_type >::other	_pair_alloc;
+	typename allocator_type::template rebind< node >::other			_node_alloc;
 
 	node *_findNode(const key_type& k) const {
 		value_type val(k, mapped_type());
@@ -266,8 +287,8 @@ private:
 		bool comparison;
 
 		while (node != _tree.get_sentinel()) {
-			comparison = _comp(node->_key, val);
-			if (!comparison && !_comp(val, node->_key))
+			comparison = _comp(*node->_key, val);
+			if (!comparison && !_comp(val, *node->_key))
 				return node;
 			else if (comparison)
 				node = node->_right;

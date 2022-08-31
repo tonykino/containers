@@ -18,7 +18,7 @@ public:
 
 		while (x != _nil) {
 			y = x;
-			if (_comp(z->_key, x->_key))
+			if (_comp(*z->_key, *x->_key))
 				x = x->_left;
 			else
 				x = x->_right;
@@ -27,7 +27,7 @@ public:
 		z->_p = y;
 		if (y == _nil)
 			_root = z;
-		else if (_comp(z->_key, y->_key))
+		else if (_comp(*z->_key, *y->_key))
 			y->_left = z;
 		else
 			y->_right = z;
@@ -78,14 +78,6 @@ public:
 
 	node* max() const {
 		return _root->max();
-	}
-
-	node* successor(node *n) const {
-		return n->successor();
-	}
-
-	node* predecessor(node *n) const {
-		return n->predecessor();
 	}
 
 	void print(void) const {
